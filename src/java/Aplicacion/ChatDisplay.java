@@ -6,13 +6,17 @@ package Aplicacion;
  * and open the template in the editor.
  */
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +28,8 @@ import javax.servlet.http.HttpSession;
  */
 public class ChatDisplay extends HttpServlet {
 String x = "";
-File file;
+
+File file = new File("/home/chuki/tux.jpg");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,6 +52,7 @@ File file;
           out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+            
             out.println("<title>ChatServlet</title>");
             out.println("</head>");
             out.println("<body>");
@@ -67,10 +73,11 @@ File file;
             out.println(lista_mensajes.get(i));
             
             }
-             if(lista_mensajes.get(i).getClass().equals(file.getClass())){
+              else if(lista_mensajes.get(i).getClass().equals(file.getClass())){
             out.println("<h1> imagenes funcionan</h1>");
-            out.println("<img src="+lista_mensajes.get(i)+">");
-            }
+             out.println("<img src="+lista_mensajes.get(i)+ "/>");
+              
+              }
                 
                 //out.println(lista_mensajes.get(i));
                System.out.println(lista_mensajes.get(i).getClass());

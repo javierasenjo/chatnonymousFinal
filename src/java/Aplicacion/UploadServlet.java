@@ -92,7 +92,7 @@ public class UploadServlet extends HttpServlet {
        }
        DiskFileItemFactory factory =  new DiskFileItemFactory();
        factory.setSizeThreshold(maxMemSize);
-       factory.setRepository(new File("/home/chuki/"));
+       factory.setRepository(new File("/home/chuki/web/"));
        ServletFileUpload upload = new ServletFileUpload(factory);
        upload.setSizeMax(maxFileSize);
        try{
@@ -116,6 +116,7 @@ public class UploadServlet extends HttpServlet {
                }
                fi.write( file ) ;
                out.println("Uploaded Filename: " + fileName + "<br>");
+               System.out.println(fileName);
          }
          }
          lista_mensajes.add(file);

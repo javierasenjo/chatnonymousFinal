@@ -67,7 +67,7 @@
       <description>Location to store uploaded file</description> 
       <param-name>file-upload</param-name> 
       <param-value>
-         /home/chuki/CEU/ 
+         /home/chuki/NetBeansProjects/Chatnonymous/web/resources/
       </param-value> 
    </context-param>
 </web-app>
