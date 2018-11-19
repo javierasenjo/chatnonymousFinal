@@ -70,7 +70,11 @@ public class ChatDisplay extends HttpServlet {
             
             out.println("<input type='submit' value='Send'/>");
             out.println("</form>");
-    
+            out.println("<h3>Enviar archivo </h3>");
+            out.print("<form action ='UploadServlet' method ='post' enctype ='multipart/form-data'>");
+            out.println("<input type='file' name='file' size='50'/>");
+            out.print("<input type='submit' value ='Subir archivo'/>");
+            out.println("</form>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
