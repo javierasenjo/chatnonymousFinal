@@ -8,8 +8,11 @@ package Aplicacion;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +73,8 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                ServletContext aplicacion = getServletContext();
+        ArrayList <Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
        isMultipart = ServletFileUpload.isMultipartContent(request);
        response.setContentType("text/html");
        PrintWriter out = response.getWriter();
@@ -87,18 +92,14 @@ public class UploadServlet extends HttpServlet {
        }
        DiskFileItemFactory factory =  new DiskFileItemFactory();
        factory.setSizeThreshold(maxMemSize);
-       factory.setRepository(new File("/temp"));
+       factory.setRepository(new File("/home/chuki/"));
        ServletFileUpload upload = new ServletFileUpload(factory);
        upload.setSizeMax(maxFileSize);
        try{
        List fileItems = upload.parseRequest(request);
        Iterator i = fileItems.iterator();
        
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>Servlet upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
+       
          
          while(i.hasNext()){
          FileItem fi = (FileItem)i.next();
@@ -117,8 +118,10 @@ public class UploadServlet extends HttpServlet {
                out.println("Uploaded Filename: " + fileName + "<br>");
          }
          }
-                 out.println("</body>");
-         out.println("</html>");
+         lista_mensajes.add(file);
+         
+            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
+      rd.forward(request, response);
          }
         
          catch(Exception ex){

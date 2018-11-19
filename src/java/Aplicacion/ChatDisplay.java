@@ -6,6 +6,7 @@ package Aplicacion;
  * and open the template in the editor.
  */
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ import javax.servlet.http.HttpSession;
  * @author chuki
  */
 public class ChatDisplay extends HttpServlet {
-
+String x = "";
+File file;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +38,7 @@ public class ChatDisplay extends HttpServlet {
             throws ServletException, IOException {
      
         ServletContext aplicacion = getServletContext();
-        ArrayList <String> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
+        ArrayList <Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
        HttpSession sesion = request.getSession();
        int contador = (int) sesion.getAttribute("contador");
        int posicion = (int) aplicacion.getAttribute("contador_mensajes");
@@ -59,8 +61,28 @@ public class ChatDisplay extends HttpServlet {
             System.out.println(lista_mensajes);
             
             
+            
             for (int i=contador;i<lista_mensajes.size();i++){
+              if (lista_mensajes.get(i).getClass().equals(x.getClass())){
             out.println(lista_mensajes.get(i));
+            
+            }
+             if(lista_mensajes.get(i).getClass().equals(file.getClass())){
+            out.println("<h1> imagenes funcionan</h1>");
+            out.println("<img src="+lista_mensajes.get(i)+">");
+            }
+                
+                //out.println(lista_mensajes.get(i));
+               System.out.println(lista_mensajes.get(i).getClass());
+//            if(lista_mensajes.get(i).getClass().equals(x.getClass())){
+//            out.println("String");
+//            
+//            }
+//            if(lista_mensajes.get(i).getClass().equals(file.getClass())){
+//            out.println( "<img src=>" );
+//            
+//            }
+//            
             out.println("</br>");
             }
             
