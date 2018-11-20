@@ -101,9 +101,12 @@ public class LoginDisplay extends HttpServlet {
     @Override
     public void init(){
         int contador_mensajes = 0;
+        
      ArrayList <String> lista_mensajes = new ArrayList();
+     ArrayList <String> usuarios_conectados = new ArrayList();
     ServletContext aplicacion = getServletContext();
     aplicacion.setAttribute("lista_mensajes",lista_mensajes);
+    aplicacion.setAttribute("usuarios_conectados",usuarios_conectados);
     aplicacion.setAttribute("contador_mensajes",contador_mensajes);
     }
     @Override

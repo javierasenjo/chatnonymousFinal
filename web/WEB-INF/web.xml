@@ -27,8 +27,10 @@
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>Aplicacion.UploadServlet</servlet-class>
- 
-    
+    </servlet>
+    <servlet>
+        <servlet-name>ViewersServlet</servlet-name>
+        <servlet-class>Aplicacion.ViewersServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ChatDisplay</servlet-name>
@@ -58,16 +60,20 @@
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewersServlet</servlet-name>
+        <url-pattern>/ViewersServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-          <context-param> 
-      <description>Location to store uploaded file</description> 
-      <param-name>file-upload</param-name> 
-      <param-value>
-         /home/chuki/NetBeansProjects/Chatnonymous/web/resources/
-      </param-value> 
-   </context-param>
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+         D:\NetBeansProjects\Chatnonymous\web\resources
+      </param-value>
+    </context-param>
 </web-app>

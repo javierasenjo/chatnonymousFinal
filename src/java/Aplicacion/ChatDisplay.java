@@ -5,7 +5,6 @@ package Aplicacion;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -27,9 +26,11 @@ import javax.servlet.http.HttpSession;
  * @author chuki
  */
 public class ChatDisplay extends HttpServlet {
-String x = "";
 
-File file = new File("/home/chuki/tux.jpg");
+    String x = "";
+
+    //File file = new File(null);
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,46 +42,40 @@ File file = new File("/home/chuki/tux.jpg");
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+
         ServletContext aplicacion = getServletContext();
-        ArrayList <Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
-       HttpSession sesion = request.getSession();
-       int contador = (int) sesion.getAttribute("contador");
-       int posicion = (int) aplicacion.getAttribute("contador_mensajes");
+        ArrayList<Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
+        HttpSession sesion = request.getSession();
+        int contador = (int) sesion.getAttribute("contador");
+        int posicion = (int) aplicacion.getAttribute("contador_mensajes");
         response.setContentType("text/html;charset=UTF-8");
-               PrintWriter out = response.getWriter();
-          out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            
-            out.println("<title>ChatServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>mensajes</h1>");
-            
-            //for (String a:lista_mensajes){
-            //out.println("<p>"+a+"</p>");
-            //}
-            
-          
-           
-            System.out.println(lista_mensajes);
-            
-            
-            
-            for (int i=contador;i<lista_mensajes.size();i++){
-              if (lista_mensajes.get(i).getClass().equals(x.getClass())){
-            out.println(lista_mensajes.get(i));
-            
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+
+        out.println("<title>ChatServlet</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>mensajes</h1>");
+
+        //for (String a:lista_mensajes){
+        //out.println("<p>"+a+"</p>");
+        //}
+        System.out.println(lista_mensajes);
+
+        for (int i = contador; i < lista_mensajes.size(); i++) {
+            if (lista_mensajes.get(i).getClass().equals(x.getClass())) {
+                out.println(lista_mensajes.get(i));
+
+//            } else if (lista_mensajes.get(i).getClass().equals(file.getClass())) {
+//                out.println("<h1> imagenes funcionan</h1>");
+//                out.println("<img src=" + lista_mensajes.get(i) + "/>");
+//
             }
-              else if(lista_mensajes.get(i).getClass().equals(file.getClass())){
-            out.println("<h1> imagenes funcionan</h1>");
-             out.println("<img src="+lista_mensajes.get(i)+ "/>");
-              
-              }
-                
-                //out.println(lista_mensajes.get(i));
-               System.out.println(lista_mensajes.get(i).getClass());
+
+            //out.println(lista_mensajes.get(i));
+            System.out.println(lista_mensajes.get(i).getClass());
 //            if(lista_mensajes.get(i).getClass().equals(x.getClass())){
 //            out.println("String");
 //            
@@ -91,19 +86,21 @@ File file = new File("/home/chuki/tux.jpg");
 //            }
 //            
             out.println("</br>");
-            }
-            
-                
-            out.println("<form name='loginForm' method='post' action='ChatServlet'>");
-            out.println("Mensaje<input type='text' name='message'/><br/>");
-            
-            out.println("<input type='submit' value='Send'/>");
-            out.println("</form>");
-            out.println("<h3>Enviar archivo </h3>");
-            out.print("<form action ='UploadServlet' method ='post' enctype ='multipart/form-data'>");
-            out.println("<input type='file' name='file' size='50'/>");
-            out.print("<input type='submit' value ='Subir archivo'/>");
-            out.println("</form>");
+        }
+
+        out.println("<form name='loginForm' method='post' action='ChatServlet'>");
+        out.println("Mensaje<input type='text' name='message'/><br/>");
+
+        out.println("<input type='submit' value='Send'/>");
+        out.println("</form>");
+        out.println("<h3>Enviar archivo </h3>");
+        out.print("<form action ='UploadServlet' method ='post' enctype ='multipart/form-data'>");
+        out.println("<input type='file' name='file' size='50'/>");
+        out.print("<input type='submit' value ='Subir archivo'/>");
+        out.println("</form>");
+        out.print("<form action ='ViewersServlet' method ='post'>");
+        out.print("<input type='submit' value ='Ver los observadores'/>");
+        out.println("</form>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

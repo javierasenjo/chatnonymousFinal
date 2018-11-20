@@ -51,6 +51,7 @@ String c= "chuki";
         Connection conn = datasource.getConnection();
         ServletContext aplicacion = getServletContext();
         int contador = (int) aplicacion.getAttribute("contador_mensajes");
+        ArrayList<String>usuarios_conectados=(ArrayList)aplicacion.getAttribute("usuarios_conectados");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
         String usuario = request.getParameter("username");
@@ -64,6 +65,8 @@ String c= "chuki";
             
             ArrayList <String> lista_mensajes = new ArrayList();
             sesion.setAttribute("contador", contador);
+            usuarios_conectados.add(usuario);
+            aplicacion.setAttribute("usuarios_conectados",usuarios_conectados);
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
             rd.forward(request, response);
             
