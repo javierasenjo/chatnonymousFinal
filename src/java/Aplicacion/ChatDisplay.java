@@ -29,8 +29,7 @@ public class ChatDisplay extends HttpServlet {
 
     String x = "";
 
-    //File file = new File(null);
-
+    //File file = new File(x);
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,10 +67,10 @@ public class ChatDisplay extends HttpServlet {
             if (lista_mensajes.get(i).getClass().equals(x.getClass())) {
                 out.println(lista_mensajes.get(i));
 
-//            } else if (lista_mensajes.get(i).getClass().equals(file.getClass())) {
-//                out.println("<h1> imagenes funcionan</h1>");
-//                out.println("<img src=" + lista_mensajes.get(i) + "/>");
-//
+            } else {
+                out.println("<h5> imagenes funcionan</h5>");
+                out.println("<img src=" + lista_mensajes.get(i) + "></img>");
+
             }
 
             //out.println(lista_mensajes.get(i));

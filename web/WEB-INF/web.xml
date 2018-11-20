@@ -73,7 +73,7 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-         D:\NetBeansProjects\Chatnonymous\web\resources
+         D:\temp\
       </param-value>
     </context-param>
 </web-app>
