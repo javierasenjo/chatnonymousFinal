@@ -56,7 +56,7 @@ public class DataBaseHandler {
                 query = "insert into tb_users values (" + username + "," + contrasena + ");";
 
                 st = conn.createStatement();
-                rs = st.executeQuery(query);
+                st.execute(query);
                 conn.close();
             }
         } catch (NamingException ex) {
