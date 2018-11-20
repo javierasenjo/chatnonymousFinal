@@ -5,7 +5,6 @@ package Aplicacion;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -31,8 +30,10 @@ import javax.sql.DataSource;
  * @author chuki
  */
 public class LoginChat extends HttpServlet {
-String u = "chuki";
-String c= "chuki";
+
+    String u = "chuki";
+    String c = "chuki";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,44 +45,28 @@ String c= "chuki";
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-    try {
-        InitialContext initialcontext = new InitialContext();
-        DataSource datasource;
-        datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
-        Connection conn = datasource.getConnection();
         ServletContext aplicacion = getServletContext();
         int contador = (int) aplicacion.getAttribute("contador_mensajes");
-        ArrayList<String>usuarios_conectados=(ArrayList)aplicacion.getAttribute("usuarios_conectados");
+        ArrayList<String> usuarios_conectados = (ArrayList) aplicacion.getAttribute("usuarios_conectados");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
         String usuario = request.getParameter("username");
         String contrasena = request.getParameter("password");
-        String query = "select * from tb_users where email ='"+ usuario + "' and password ='" + contrasena+"';";
-        Statement st;
-        st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
-        if (rs.next())
-        {
-            
-            ArrayList <String> lista_mensajes = new ArrayList();
+        DataBaseHandler bd = new DataBaseHandler();
+        ResultSet rs = bd.loginear(usuario, contrasena);
+        if (rs.next()) {
+
+            ArrayList<String> lista_mensajes = new ArrayList();
             sesion.setAttribute("contador", contador);
             usuarios_conectados.add(usuario);
-            aplicacion.setAttribute("usuarios_conectados",usuarios_conectados);
+            aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
             rd.forward(request, response);
-            
-            
-        }
-        else
-        {
+
+        } else {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");
             rd.forward(request, response);
         }
-    } catch (NamingException ex) {
-        Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
-    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,11 +81,11 @@ String c= "chuki";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (SQLException ex) {
-        Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -114,11 +99,11 @@ String c= "chuki";
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (SQLException ex) {
-        Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

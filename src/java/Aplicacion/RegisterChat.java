@@ -5,7 +5,6 @@ package Aplicacion;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -44,31 +43,31 @@ public class RegisterChat extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String usuario = request.getParameter("username");
-            String contrasena1=request.getParameter("password");
+            String contrasena1 = request.getParameter("password");
             String contrasena2 = request.getParameter("password2");
-            
-            if(contrasena1.equals(contrasena2)){
-            InitialContext initialcontext = new InitialContext();
-              DataSource datasource;
-              datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
-              Connection conn = datasource.getConnection();
-              String posible_usuario = request.getParameter("username");
-              String posible_password= request.getParameter("password");
-              String query = "select * from tb_users where email ='"+ posible_usuario + "';";
-              Statement st;
-              st = conn.createStatement();
-              ResultSet rs = st.executeQuery(query);
-              if (!rs.next()){
-               usuario = "'"+posible_usuario+"'";
-               String contrasena = "'"+posible_password+"'";
-              query = "insert into tb_users values ("+usuario+","+contrasena+");";
-              st.execute(query);
-              conn.close();
-              RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");
-              rd.forward(request, response);
-              
-              }
-            
+
+            if (contrasena1.equals(contrasena2)) {
+                InitialContext initialcontext = new InitialContext();
+                DataSource datasource;
+                datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
+                Connection conn = datasource.getConnection();
+                String posible_usuario = request.getParameter("username");
+                String posible_password = request.getParameter("password");
+                String query = "select * from tb_users where email ='" + posible_usuario + "';";
+                Statement st;
+                st = conn.createStatement();
+                ResultSet rs = st.executeQuery(query);
+                if (!rs.next()) {
+                    usuario = "'" + posible_usuario + "'";
+                    String contrasena = "'" + posible_password + "'";
+                    query = "insert into tb_users values (" + usuario + "," + contrasena + ");";
+                    st.execute(query);
+                    conn.close();
+                    RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");
+                    rd.forward(request, response);
+
+                }
+
             }
         }
     }
