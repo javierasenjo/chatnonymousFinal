@@ -19,6 +19,7 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,16 +61,31 @@ public class LoginChat extends HttpServlet {
             sesion.setAttribute("contador", contador);
             usuarios_conectados.add(usuario);
             aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
+
+            Cookie[] listaCookies = request.getCookies();
+            Cookie galletaSelectora = null;
+
+            if (listaCookies != null) {
+                for (Cookie galleta : listaCookies) {
+                    if (galleta.getName().equals("Contador")) {
+                        galletaSelectora = galleta;
+                        galletaSelectora.setValue(Integer.toString(Integer.parseInt(galleta.getValue()) + 1));
+                    }
+                }
+            }
+            if (galletaSelectora == null) {
+                galletaSelectora = new Cookie("Contador", "1");
+            }
+            response.addCookie(galletaSelectora);
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
             rd.forward(request, response);
-
         } else {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");
             rd.forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -83,8 +99,10 @@ public class LoginChat extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginChat.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -101,8 +119,10 @@ public class LoginChat extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginChat.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

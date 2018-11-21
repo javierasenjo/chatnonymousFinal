@@ -16,6 +16,7 @@ import java.util.Iterator;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +49,14 @@ public class ChatDisplay extends HttpServlet {
         int contador = (int) sesion.getAttribute("contador");
         int posicion = (int) aplicacion.getAttribute("contador_mensajes");
         response.setContentType("text/html;charset=UTF-8");
+        int numeroSesion = 1;
+        Cookie[] listaCookies = request.getCookies();
+
+        for (Cookie galleta : listaCookies) {
+            if (galleta.getName().equals("Contador")) {
+                numeroSesion = Integer.parseInt(galleta.getValue());
+            }
+        }
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
         out.println("<html>");
@@ -100,6 +109,7 @@ public class ChatDisplay extends HttpServlet {
         out.print("<form action ='ViewersServlet' method ='post'>");
         out.print("<input type='submit' value ='Ver los observadores'/>");
         out.println("</form>");
+        out.println("<h3>Has visitado esta página " + numeroSesion + " veces </H3>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
