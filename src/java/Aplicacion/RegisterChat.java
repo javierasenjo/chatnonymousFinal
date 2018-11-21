@@ -46,7 +46,7 @@ public class RegisterChat extends HttpServlet {
             String contrasena1 = request.getParameter("password");
             String contrasena2 = request.getParameter("password2");
 
-            if (contrasena1.equals(contrasena2)) {
+            if (contrasena1.equals(contrasena2) && !usuario.isEmpty() && !contrasena1.isEmpty() && !contrasena2.isEmpty()) {
                 DataBaseHandler bd = new DataBaseHandler();
                 ResultSet rs = bd.register(usuario, contrasena1);
                 if (!rs.next()) {
@@ -55,6 +55,9 @@ public class RegisterChat extends HttpServlet {
 
                 }
 
+            } else {
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+                rd.forward(request, response);
             }
         }
     }

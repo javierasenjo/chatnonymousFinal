@@ -32,6 +32,10 @@
         <servlet-name>ViewersServlet</servlet-name>
         <servlet-class>Aplicacion.ViewersServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExceptionHandler</servlet-name>
+        <servlet-class>Aplicacion.ExceptionHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChatDisplay</servlet-name>
         <url-pattern>/ChatDisplay</url-pattern>
@@ -64,6 +68,10 @@
         <servlet-name>ViewersServlet</servlet-name>
         <url-pattern>/ViewersServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExceptionHandler</servlet-name>
+        <url-pattern>/ExceptionHandler</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -73,7 +81,19 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-         D:\temp\
-      </param-value>
+            D:\temp\
+        </param-value>
     </context-param>
+    <error-page>
+        <exception-type>java.io.FileNotFoundException</exception-type>
+        <location>/ExceptionHandler</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500error.html</location>
+    </error-page>
 </web-app>
