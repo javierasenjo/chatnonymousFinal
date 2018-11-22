@@ -10,6 +10,5 @@
     <property name="User" value="root"/>
     <property name="Password" value="root"/>
   </jdbc-connection-pool>
-  <property  name="alternatedocroot_1" value="from=/images/* dir=/home/chuki/glassfish-4.1.1/glassfish/domains/domain1/applications/__internal/Chatnonymous/images/
-" />
+  
 </resources>
