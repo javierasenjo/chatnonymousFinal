@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -46,6 +47,11 @@ public class RegisterChat extends HttpServlet {
             String contrasena1 = request.getParameter("password");
             String contrasena2 = request.getParameter("password2");
 
+            EmailValidator validador = new EmailValidator();
+            if (validador.validadorGeneral(usuario) != true) {
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/500error.html");
+                rd.forward(request, response);
+            }
             if (contrasena1.equals(contrasena2) && !usuario.isEmpty() && !contrasena1.isEmpty() && !contrasena2.isEmpty()) {
                 DataBaseHandler bd = new DataBaseHandler();
                 ResultSet rs = bd.register(usuario, contrasena1);
