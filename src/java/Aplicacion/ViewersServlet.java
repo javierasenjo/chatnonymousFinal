@@ -42,7 +42,10 @@ public class ViewersServlet extends HttpServlet {
         out.println("<h1>Usuarios observando</h1>");
         out.println("<ul>");
         for (int i = 0; i < usuarios_conectados.size(); i++) {
-            out.println("<li> " + usuarios_conectados.get(i) + " </li>");
+            EmailValidator validador = new EmailValidator();
+            if (validador.validadorCeu(usuarios_conectados.get(i)) != true) {
+                out.println("<li> " + usuarios_conectados.get(i) + " </li>");
+            }
         }
         out.println("</ul>");
         out.print("<form action ='ChatDisplay' method ='post'>");

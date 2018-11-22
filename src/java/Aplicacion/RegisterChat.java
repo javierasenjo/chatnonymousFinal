@@ -49,7 +49,7 @@ public class RegisterChat extends HttpServlet {
 
             EmailValidator validador = new EmailValidator();
             if (validador.validadorGeneral(usuario) != true) {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/500error.html");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/emailNotValid.html");
                 rd.forward(request, response);
             }
             if (contrasena1.equals(contrasena2) && !usuario.isEmpty() && !contrasena1.isEmpty() && !contrasena2.isEmpty()) {

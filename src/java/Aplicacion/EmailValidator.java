@@ -15,13 +15,24 @@ import java.util.regex.Pattern;
 public class EmailValidator {
 
     String regexGeneral = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
-    String regexCeu1 = "^([a-zA-Z0-9_\\-\\.]+)@usp.ceu.es";
-    String regexCeu2 = "^([a-zA-Z0-9_\\-\\.]+)@ceu.es";
+    String regexCeu1 = "^([a-zA-Z0-9_\\-\\.]+)@usp.ceu.es$";
+    String regexCeu2 = "^([a-zA-Z0-9_\\-\\.]+)@ceu.es$";
     Pattern regix = null;
     Matcher matcher = null;
 
     public boolean validadorCeu(String email) {
-        return true;
+        regix = Pattern.compile(regexCeu1);
+        Pattern regix2 = Pattern.compile(regexCeu2);
+        matcher = regix.matcher(email);
+        Matcher matcher2 = regix2.matcher(email);
+        if (matcher.find() == true) {
+            if (matcher2.find() == true) {
+                return true;
+            }
+            return false;
+        } else {
+            return false;
+        }
     }
 
     public boolean validadorGeneral(String email) {
