@@ -78,7 +78,9 @@ public class ChatDisplay extends HttpServlet {
 
             } else {
                 out.println("<h5> imagenes funcionan</h5>");
-                out.println("<img src=" + lista_mensajes.get(i) + "></img>");
+                File get = (File) lista_mensajes.get(i);
+                System.out.println("Nombre:"+get.getName());
+                out.println("<img src=" +"./images/"+get.getName() + "></img>");
 
             }
 
