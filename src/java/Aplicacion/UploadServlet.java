@@ -92,7 +92,7 @@ public class UploadServlet extends HttpServlet {
        }
        DiskFileItemFactory factory =  new DiskFileItemFactory();
        factory.setSizeThreshold(maxMemSize);
-       factory.setRepository(new File("D:\\Javier\\Imagenes"));
+       factory.setRepository(new File("/home/chuki/glassfish-4.1.1/glassfish/domains/domain1/applications/__internal/Chatnonymous/images"));
        ServletFileUpload upload = new ServletFileUpload(factory);
        upload.setSizeMax(maxFileSize);
        try{

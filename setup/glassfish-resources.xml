@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
+    
   <jdbc-resource enabled="true" jndi-name="jdbc/swDatabase" object-type="user" pool-name="swPool">
     <description/>
   </jdbc-resource>
@@ -9,4 +10,6 @@
     <property name="User" value="root"/>
     <property name="Password" value="root"/>
   </jdbc-connection-pool>
+  <property  name="alternatedocroot_1" value="from=/images/* dir=/home/chuki/glassfish-4.1.1/glassfish/domains/domain1/applications/__internal/Chatnonymous/images/
+" />
 </resources>
