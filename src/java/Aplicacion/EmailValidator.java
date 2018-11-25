@@ -25,11 +25,8 @@ public class EmailValidator {
         Pattern regix2 = Pattern.compile(regexCeu2);
         matcher = regix.matcher(email);
         Matcher matcher2 = regix2.matcher(email);
-        if (matcher.find() == true) {
-            if (matcher2.find() == true) {
-                return true;
-            }
-            return false;
+        if (matcher.find() == true || matcher2.find() == true) {
+            return true;
         } else {
             return false;
         }
