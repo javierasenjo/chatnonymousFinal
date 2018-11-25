@@ -64,4 +64,20 @@ public class DataBaseHandler {
         }
         return rs;
     }
+
+    public void recuperarContrasena(String username, String password) throws SQLException {
+        try {
+            InitialContext initialcontext = new InitialContext();
+            DataSource datasource;
+            datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
+            Connection conn = datasource.getConnection();
+            String query = "update tb_users set password ='" + password + "' where email='" + username + "';";
+            Statement st;
+            st = conn.createStatement();
+            st.executeUpdate(query);
+            conn.close();
+        } catch (NamingException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
