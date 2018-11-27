@@ -5,10 +5,12 @@ package Aplicacion;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,30 +39,30 @@ public class LoginDisplay extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Login</title>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<form name='loginForm' method='post' action='LoginChat'>");
-        out.println("Username: <input type=\"text\" name=\"username\"/><br/>");
-        out.println("Password: <input type=\"password\" name=\"password\"/><br/> ");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Login</title>");
+            out.println("<meta charset='UTF-8'>");
+            out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<form name='loginForm' method='post' action='LoginChat'>");
+            out.println("Username: <input type=\"text\" name=\"username\"/><br/>");
+            out.println("Password: <input type=\"password\" name=\"password\"/><br/> ");
 
-        out.println("<input type=\"submit\" value=\"Login\"/>");
-        out.println("</form>");
-        out.println("<a href ='http://localhost:8080/Chatnonymous/PasswordResetDisplay'>Recuperar contraseña</a>");
-        out.println("</body>");
-        out.println("</html>");
+            out.println("<input type=\"submit\" value=\"Login\"/>");
+            out.println("</form>");
+            out.println("<a href ='http://localhost:8080/Chatnonymous/PasswordResetDisplay'>Recuperar contraseña</a>");
+            out.println("</body>");
+            out.println("</html>");
 
-        out.println("</html>");
-        
-        ServletContext aplicacion = getServletContext();
-        int contador_mensajes = (int) aplicacion.getAttribute("contador_mensajes");
-        HttpSession sesion = request.getSession();
-        sesion.setAttribute("contador",contador_mensajes);
- 
+            out.println("</html>");
+
+            ServletContext aplicacion = getServletContext();
+            int contador_mensajes = (int) aplicacion.getAttribute("contador_mensajes");
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("contador", contador_mensajes);
+
         }
     }
 
@@ -98,18 +100,6 @@ public class LoginDisplay extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    
-    @Override
-    public void init(){
-        int contador_mensajes = 0;
-        
-     ArrayList <String> lista_mensajes = new ArrayList();
-     ArrayList <String> usuarios_conectados = new ArrayList();
-    ServletContext aplicacion = getServletContext();
-    aplicacion.setAttribute("lista_mensajes",lista_mensajes);
-    aplicacion.setAttribute("usuarios_conectados",usuarios_conectados);
-    aplicacion.setAttribute("contador_mensajes",contador_mensajes);
-    }
     @Override
     public String getServletInfo() {
         return "Short description";

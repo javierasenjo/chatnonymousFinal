@@ -93,15 +93,17 @@ public class DataBaseHandler {
         return pass;
     }
 
-    public void createTables() {
+    public void createTable() throws NamingException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbxTesting", "root", "root");
+            InitialContext initialcontext = new InitialContext();
+            DataSource datasource;
+            datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
+            Connection conn = datasource.getConnection();
+            String query = "create table if not exists tb_users (email varchar(30) not null, password varchar(50) not null);";
             Statement st = conn.createStatement();
-            int myResult = st.executeUpdate("CREATE TABLE eventos(evento_id int(11) NOT NULL AUTO_INCREMENT,nombre varchar(30) DEFAULT NULL,direccion varchar(60) DEFAULT NULL,ciudad varchar(50) DEFAULT NULL,fecha varchar(20) DEFAULT NULL,listas int(11) DEFAULT NULL,PRIMARY KEY (evento_id))");
-            System.out.println("Table created !");
+            st.executeUpdate(query);
             conn.close();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -111,9 +113,9 @@ public class DataBaseHandler {
     public void createDatabase() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user=root&password=root");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user=root&password=root&useSSL=false");
             Statement st = conn.createStatement();
-            int myResult = st.executeUpdate("CREATE DATABASE IF NOT EXISTS dbxTesting");
+            int myResult = st.executeUpdate("CREATE DATABASE IF NOT EXISTS sw");
             System.out.println("Database created !");
             conn.close();
         } catch (ClassNotFoundException | SQLException e) {

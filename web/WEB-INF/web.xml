@@ -44,6 +44,11 @@
         <servlet-name>PasswordResetDisplay</servlet-name>
         <servlet-class>Aplicacion.PasswordResetDisplay</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StartUpServlet</servlet-name>
+        <servlet-class>Aplicacion.StartUpServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChatDisplay</servlet-name>
         <url-pattern>/ChatDisplay</url-pattern>
@@ -88,6 +93,10 @@
         <servlet-name>PasswordResetDisplay</servlet-name>
         <url-pattern>/PasswordResetDisplay</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StartUpServlet</servlet-name>
+        <url-pattern>/StartUpServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -97,7 +106,7 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-          D:\temp\images\
+            D:\temp\images\
         </param-value>
     </context-param>
     <error-page>
