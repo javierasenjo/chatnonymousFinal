@@ -58,7 +58,7 @@ public class DataBaseHandler {
             if (!rs.next()) {
                 username = "'" + username + "'";
                 String contrasena = "'" + password + "'";
-                query = "insert into tb_users values (" + username + ",sha1('" + contrasena + "'));";
+                query = "insert into tb_users values (" + username + ",sha1(" + contrasena + "));";
 
                 st = conn.createStatement();
                 st.execute(query);
@@ -85,18 +85,18 @@ public class DataBaseHandler {
             Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public static String hash(String pass) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+    public String hash(String pass) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest msdDigest = MessageDigest.getInstance("SHA-1");
         msdDigest.update(pass.getBytes("UTF-8"), 0, pass.length());
         pass = DatatypeConverter.printHexBinary(msdDigest.digest());
         return pass;
     }
-     
-      public static void createTables() {
+
+    public void createTables() {
         try {
-             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbxTesting","root","root");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbxTesting", "root", "root");
             Statement st = conn.createStatement();
             int myResult = st.executeUpdate("CREATE TABLE eventos(evento_id int(11) NOT NULL AUTO_INCREMENT,nombre varchar(30) DEFAULT NULL,direccion varchar(60) DEFAULT NULL,ciudad varchar(50) DEFAULT NULL,fecha varchar(20) DEFAULT NULL,listas int(11) DEFAULT NULL,PRIMARY KEY (evento_id))");
             System.out.println("Table created !");
@@ -107,7 +107,8 @@ public class DataBaseHandler {
         }
 
     }
-    public static void createDatabase() {
+
+    public void createDatabase() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user=root&password=root");
@@ -122,6 +123,4 @@ public class DataBaseHandler {
 
     }
 
-     
-     
 }

@@ -43,7 +43,7 @@ public class LoginChat extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
         ServletContext aplicacion = getServletContext();
         int contador = (int) aplicacion.getAttribute("contador_mensajes");
         ArrayList<String> usuarios_conectados = (ArrayList) aplicacion.getAttribute("usuarios_conectados");
@@ -52,7 +52,8 @@ public class LoginChat extends HttpServlet {
         String usuario = request.getParameter("username");
         String contrasena = request.getParameter("password");
         DataBaseHandler bd = new DataBaseHandler();
-        ResultSet rs = bd.loginear(usuario, contrasena);
+        String contrasena_cifrada= bd.hash(contrasena).toLowerCase();
+        ResultSet rs = bd.loginear(usuario, contrasena_cifrada);
         if (rs.next()) {
 
             ArrayList<String> lista_mensajes = new ArrayList();
@@ -101,6 +102,8 @@ public class LoginChat extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(LoginChat.class
                     .getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
 
@@ -121,6 +124,8 @@ public class LoginChat extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(LoginChat.class
                     .getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
 
