@@ -14,6 +14,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -39,7 +41,7 @@ public class RegisterChat extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NamingException, SQLException {
+            throws ServletException, IOException, NamingException, SQLException{
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -49,7 +51,7 @@ public class RegisterChat extends HttpServlet {
 
             EmailValidator validador = new EmailValidator();
             if (validador.validadorGeneral(usuario) != true) {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/500error.html");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/emailNotValid.html");
                 rd.forward(request, response);
             }
             if (contrasena1.equals(contrasena2) && !usuario.isEmpty() && !contrasena1.isEmpty() && !contrasena2.isEmpty()) {

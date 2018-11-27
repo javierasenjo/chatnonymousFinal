@@ -50,6 +50,7 @@ public class LoginDisplay extends HttpServlet {
 
         out.println("<input type=\"submit\" value=\"Login\"/>");
         out.println("</form>");
+        out.println("<a href ='http://localhost:8080/Chatnonymous/PasswordResetDisplay'>Recuperar contraseña</a>");
         out.println("</body>");
         out.println("</html>");
 

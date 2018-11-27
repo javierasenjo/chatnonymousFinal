@@ -7,6 +7,8 @@ package Aplicacion;
  */
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -31,9 +32,6 @@ import javax.sql.DataSource;
  * @author chuki
  */
 public class LoginChat extends HttpServlet {
-
-    String u = "chuki";
-    String c = "chuki";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -103,7 +101,7 @@ public class LoginChat extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(LoginChat.class
                     .getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     /**
@@ -123,7 +121,7 @@ public class LoginChat extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(LoginChat.class
                     .getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     /**

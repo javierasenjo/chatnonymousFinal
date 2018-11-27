@@ -7,7 +7,6 @@ package Aplicacion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author javie
  */
-public class ViewersServlet extends HttpServlet {
-
-    EmailValidator validador = new EmailValidator();
+public class PasswordResetDisplay extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,27 +29,24 @@ public class ViewersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<String> usuarios_conectados = (ArrayList) getServletContext().getAttribute("usuarios_conectados");
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PasswordResetDisplay</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<form name='ResetForm' method='post' action='PasswordResetServlet'>");
+            out.println("Username: <input type=\"text\" name=\"username\"/><br/>");
+            out.println("New Password: <input type=\"password\" name=\"password\"/><br/> ");
 
-        out.println("<title>ViewersServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Usuarios observando</h1>");
-        out.println("<ul>");
-        for (int i = 0; i < usuarios_conectados.size(); i++) {
-            if (validador.validadorCeu(usuarios_conectados.get(i)) != true) {
-                out.println("<li> " + usuarios_conectados.get(i) + " </li>");
-            }
+            out.println("<input type=\"submit\" value=\"Recuperar contraseña\"/>");
+            out.println("</form>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        out.println("</ul>");
-        out.print("<form action ='ChatDisplay' method ='post'>");
-        out.print("<input type='submit' value ='Volver al chat'/>");
-        out.println("</form>");
-        out.println("</body>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
