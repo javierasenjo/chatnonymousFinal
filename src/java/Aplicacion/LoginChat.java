@@ -52,7 +52,9 @@ public class LoginChat extends HttpServlet {
         String usuario = request.getParameter("username");
         String contrasena = request.getParameter("password");
         DataBaseHandler bd = new DataBaseHandler();
-        String contrasena_cifrada= bd.hash(contrasena).toLowerCase();
+        String contrasena_cifrada = bd.hash(contrasena).toLowerCase();
+        //Para forzar excepciones
+        //Integer.parseInt("dewrftgbyhnu");
         ResultSet rs = bd.loginear(usuario, contrasena_cifrada);
         if (rs.next()) {
 
@@ -104,7 +106,7 @@ public class LoginChat extends HttpServlet {
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     /**
@@ -126,7 +128,7 @@ public class LoginChat extends HttpServlet {
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     /**

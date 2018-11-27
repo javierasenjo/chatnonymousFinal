@@ -110,7 +110,7 @@
         </param-value>
     </context-param>
     <error-page>
-        <exception-type>java.io.FileNotFoundException</exception-type>
+        <exception-type>java.lang.Exception</exception-type>
         <location>/ExceptionHandler</location>
     </error-page>
     <error-page>
