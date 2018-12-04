@@ -7,6 +7,7 @@ package Aplicacion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,24 +30,8 @@ public class PasswordResetDisplay extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PasswordResetDisplay</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<form name='ResetForm' method='post' action='PasswordResetServlet'>");
-            out.println("Username: <input type=\"text\" name=\"username\"/><br/>");
-            out.println("New Password: <input type=\"password\" name=\"password\"/><br/> ");
-
-            out.println("<input type=\"submit\" value=\"Recuperar contraseña\"/>");
-            out.println("</form>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/passwordResetDisplay.xhtml");
+rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

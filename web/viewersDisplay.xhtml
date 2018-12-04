@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <h1>Usuarios observando</h1>
+        
+             <ul>
+            <c:forEach items="#{applicationScope.usuarios_conectados}" var="entry">
+                <li>  <b>#{entry}</b> </li>
+                
+            </c:forEach>
+        </ul>
+    </ui:define>
+
+</ui:composition>

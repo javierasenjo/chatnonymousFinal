@@ -5,9 +5,9 @@ package Aplicacion;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,29 +32,9 @@ public class RegisterDisplay extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-             out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Login</title>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<form name='loginForm' method='post' action='RegisterChat'>");
-        out.println("Username: <input type=\"text\" name=\"username\"/><br/>");
-        out.println("Password: <input type=\"password\" name=\"password\"/><br/> ");
-        out.println("Repeat Password: <input type=\"password\" name=\"password2\"/><br/> ");
-        out.println("<input type=\"submit\" value=\"Login\"/>");
-        out.println("</form>");
-        out.println("</body>");
-        out.println("</html>");
-
-        out.println("</html>");
-      
-        }
-        }
-    
+        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/registerDisplay.xhtml");
+        rd.forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

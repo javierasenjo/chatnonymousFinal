@@ -8,6 +8,7 @@ package Aplicacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,27 +33,8 @@ public class ViewersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<String> usuarios_conectados = (ArrayList) getServletContext().getAttribute("usuarios_conectados");
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-
-        out.println("<title>ViewersServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Usuarios observando</h1>");
-        out.println("<ul>");
-        for (int i = 0; i < usuarios_conectados.size(); i++) {
-            if (validador.validadorCeu(usuarios_conectados.get(i)) != true) {
-                out.println("<li> " + usuarios_conectados.get(i) + " </li>");
-            }
-        }
-        out.println("</ul>");
-        out.print("<form action ='ChatDisplay' method ='post'>");
-        out.print("<input type='submit' value ='Volver al chat'/>");
-        out.println("</form>");
-        out.println("</body>");
+        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/viewersDisplay.xhtml");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

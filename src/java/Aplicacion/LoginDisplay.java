@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,34 +37,13 @@ public class LoginDisplay extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
 
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Login</title>");
-            out.println("<meta charset='UTF-8'>");
-            out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<form name='loginForm' method='post' action='LoginChat'>");
-            out.println("Username: <input type=\"text\" name=\"username\"/><br/>");
-            out.println("Password: <input type=\"password\" name=\"password\"/><br/> ");
-
-            out.println("<input type=\"submit\" value=\"Login\"/>");
-            out.println("</form>");
-            out.println("<a href ='http://localhost:8080/Chatnonymous/PasswordResetDisplay'>Recuperar contraseña</a>");
-            out.println("</body>");
-            out.println("</html>");
-
-            out.println("</html>");
-
-            ServletContext aplicacion = getServletContext();
-            int contador_mensajes = (int) aplicacion.getAttribute("contador_mensajes");
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("contador", contador_mensajes);
-
-        }
+        ServletContext aplicacion = getServletContext();
+        int contador_mensajes = (int) aplicacion.getAttribute("contador_mensajes");
+        HttpSession sesion = request.getSession();
+        sesion.setAttribute("contador", contador_mensajes);
+        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/loginDisplay.xhtml");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

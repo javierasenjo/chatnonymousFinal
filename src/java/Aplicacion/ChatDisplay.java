@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -57,60 +58,8 @@ public class ChatDisplay extends HttpServlet {
                 numeroSesion = Integer.parseInt(galleta.getValue());
             }
         }
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-
-        out.println("<title>ChatServlet</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>mensajes</h1>");
-
-        //for (String a:lista_mensajes){
-        //out.println("<p>"+a+"</p>");
-        //}
-        System.out.println(lista_mensajes);
-
-        for (int i = contador; i < lista_mensajes.size(); i++) {
-            if (lista_mensajes.get(i).getClass().equals(x.getClass())) {
-                out.println(lista_mensajes.get(i));
-
-            } else {
-                File get = (File) lista_mensajes.get(i);
-                System.out.println("Nombre:"+get.getName());
-                out.println("<img src=" +".\\images\\"+get.getName() + "></img>");
-
-            }
-
-            //out.println(lista_mensajes.get(i));
-            System.out.println(lista_mensajes.get(i).getClass());
-//            if(lista_mensajes.get(i).getClass().equals(x.getClass())){
-//            out.println("String");
-//            
-//            }
-//            if(lista_mensajes.get(i).getClass().equals(file.getClass())){
-//            out.println( "<img src=>" );
-//            
-//            }
-//            
-            out.println("</br>");
-        }
-
-        out.println("<form name='loginForm' method='post' action='ChatServlet'>");
-        out.println("Mensaje<input type='text' name='message'/><br/>");
-
-        out.println("<input type='submit' value='Send'/>");
-        out.println("</form>");
-        out.println("<h3>Enviar archivo </h3>");
-        out.print("<form action ='UploadServlet' method ='post' enctype ='multipart/form-data'>");
-        out.println("<input type='file' name='file' size='50'/>");
-        out.print("<input type='submit' value ='Subir archivo'/>");
-        out.println("</form>");
-        out.print("<form action ='ViewersServlet' method ='post'>");
-        out.print("<input type='submit' value ='Ver los observadores'/>");
-        out.println("</form>");
-        out.println("<h3>Has visitado esta página " + numeroSesion + " veces </H3>");
+        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/chatDisplay.xhtml");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
