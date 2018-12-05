@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="template.xhtml">
 
     <ui:define name="content">
-        
-                <form name ='loginForm' method="post" action='LoginChat'>
-               
-                
-                     Username: <input type="text" name="username"> </input><br/> 
-                    Password: <input type="password" name="password"></input> <br/>
-                    <input type="submit" value="Login"></input> 
+
+        <form name ='loginForm' method="post" action='LoginChat'>
+            <table>
+                <tr><td>Username:</td><td> <input type="text" name="username"> </input><br/></td></tr> 
+                 <tr><td>   Password:</td><td> <input type="password" name="password"></input> <br/></td></tr> 
+                 <tr><td> <input type="submit" value="Login"></input> </td></tr>
+            </table>
         </form>
     </ui:define>
 

@@ -2,43 +2,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-        <ui:composition 
-                        xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     template="./template.xhtml"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
-            
-            <ui:define name="content">
-                <center>
-                <h1>mensajes</h1>
-            <ul>
-            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry">
-                <li>  <b>#{entry}</b> </li>
-                
-            </c:forEach>
-        </ul>
-            
-                <form name="loginForm" method="post" action='ChatServlet'>
-                    Mensaje <input type='text' name='message'></input><br/>
-                    <input type='submit' value='Enviar'></input>
-                </form>
-                    
-                    <h3>Enviar archivo</h3>
-                    <form action='UploadServlet' method ='post' enctype='multipart/form-data'>
-                        <input type='file' name='file' size='50'></input>
-                        <input type='submit' value='Subir archivo'>
-                            
-                        </input>
-                    </form>
-                    <form action='ViewersServlet' method='post'>
-                        <input type ='submit' value='ver los observadores'></input>
-                    
-                    
-                     </form>
-                    <h3> Has visitado esta página #{applicationScope.numeroSesion} veces</h3>
-            </center>
-            </ui:define>
 
-        </ui:composition>
+    <ui:define name="content">
+        <center>
+            <table>
+                <tr><th> <h1>Chat</h1>  </th></tr>
+
+                <tr><td>
+                        <ul>
+                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry">
+                                <li>  <b>#{entry}</b> </li>
+                            </c:forEach>
+                        </ul>
+
+                    </td></tr>
+                <form name="loginForm" method="post" action='ChatServlet'>
+                    <tr><td>    Mensaje <input type='text' name='message'></input><br/></td></tr>
+                    <tr><td>    <input type='submit' value='Enviar'></input></td></tr>
+                </form>
+
+                <h3>Enviar archivo</h3>
+                <form action='UploadServlet' method ='post' enctype='multipart/form-data'>
+                    <tr><td>   <input type='file' name='file' size='50'></input></td></tr>
+                    <tr><td> <input type='submit' value='Subir archivo'></input>    </td></tr>
+
+                </form>
+                <form action='ViewersServlet' method='post'>
+                    <tr><td> <input type ='submit' value='Ver los observadores'></input>   </td></tr>   
+                </form>
+            </table>
+
+            <h3> Has visitado esta página #{applicationScope.numeroSesion} veces</h3>
+        </center>
+    </ui:define>
+
+</ui:composition>
 

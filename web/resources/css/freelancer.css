@@ -4,31 +4,61 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-freelancer/blob/master/LICENSE)
  */
 
-table{
+body{
+    
+}
+.topnav{
+    margin-top: 0px;
+    padding-top: 0px;
+    font-color:black;   
+}
+#tablatemp{
+    
     width: 100%;
-    background-color:black;
+    background-color:#f2f2f2;
+    height: 5px;
+    
 }
 
+
 #anonymous	{
-    width: 30%;
-    height: auto;
+    width: auto;
+    height: 50px;
+}
+
+input[type=text],input[type=password]{
+  width: 250px;;
+  height: 5px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
 a {
-    font-size:30px;
+    font-size:20px;
     font-family: 'Arial Narrow';
+    font-weight: 600;
     /*elimina el subrayado de los link*/
     text-decoration: none;
+    color: black;
 }
 
 a:hover { 
-    background-color: yellow;
+    background-color: white;
     width: 8px;
     height: 8px;
     padding:8px;
+    
+}
+a:visited{
+    color:black;
 }
 td{
-    padding: 1em;
+    padding-left: 2em;
+    height: 2em;
+    margin-right: 0em;
 }
     /*elimina los puntos de la lista de cada mensaje del chat*/
 li{

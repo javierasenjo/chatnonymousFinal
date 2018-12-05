@@ -8,10 +8,13 @@
         <ui:composition template="./template.xhtml">
 
             <ui:define name="content">
-                Username: <input type="text" name="username"></input><br/>
-                Password: <input type ="password" name="password"></input><br/>
-                Repeat Password: <input type="password" name="password2"></input><br/>
-                <input type="submit" value="Register"></input>  
+                <table>
+                    <tr><td> Username: </td><td><input type="text" name="username"></input><br/></td></tr>
+                    <tr><td> Password: </td><td><input type ="password" name="password"></input><br/></td></tr>
+                    <tr><td> Repeat Password:</td><td> <input type="password" name="password2"></input><br/></td></tr>
+                    <tr> <td><input type="submit" value="Register"></input> </td> </tr>
+                
+                </table>
             </ui:define>
 
         </ui:composition>
