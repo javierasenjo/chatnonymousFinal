@@ -135,7 +135,7 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-            C:\temp\images\
+            D:\temp\images\
         </param-value>
     </context-param>
     <welcome-file-list>
@@ -147,10 +147,10 @@
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/404error.html</location>
+        <location>/404error.xhtml</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/500error.html</location>
+        <location>/500error.xhtml</location>
     </error-page>
 </web-app>

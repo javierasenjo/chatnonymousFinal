@@ -51,7 +51,7 @@ public class RegisterChat extends HttpServlet {
 
             EmailValidator validador = new EmailValidator();
             if (validador.validadorGeneral(usuario) != true) {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/emailNotValid.html");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/emailNotValid.xhtml");
                 rd.forward(request, response);
             }
             if (contrasena1.equals(contrasena2) && !usuario.isEmpty() && !contrasena1.isEmpty() && !contrasena2.isEmpty()) {
@@ -64,7 +64,7 @@ public class RegisterChat extends HttpServlet {
                 }
 
             } else {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.xhtml");
                 rd.forward(request, response);
             }
         }
