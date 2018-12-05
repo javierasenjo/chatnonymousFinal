@@ -56,7 +56,10 @@ public class LoginChat extends HttpServlet {
         //Para forzar excepciones
         //Integer.parseInt("dewrftgbyhnu");
         ResultSet rs = bd.loginear(usuario, contrasena_cifrada);
-        if (rs.next()) {
+        if(usuario.equalsIgnoreCase("admin")&&rs.next()){
+          RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServletAdmin");
+            rd.forward(request, response);
+        } else if(rs.next()) {
 
             ArrayList<String> lista_mensajes = new ArrayList();
             sesion.setAttribute("contador", contador);
@@ -78,7 +81,7 @@ public class LoginChat extends HttpServlet {
                 galletaSelectora = new Cookie("Contador", "1");
             }
             response.addCookie(galletaSelectora);
-            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
+            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServlet");
             rd.forward(request, response);
         } else {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");

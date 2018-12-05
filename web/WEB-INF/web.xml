@@ -58,6 +58,14 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>ChatServletAdmin</servlet-name>
+        <servlet-class>Aplicacion.ChatServletAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChatDisplayAdmin</servlet-name>
+        <servlet-class>Aplicacion.ChatDisplayAdmin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChatDisplay</servlet-name>
         <url-pattern>/ChatDisplay</url-pattern>
@@ -109,6 +117,14 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChatServletAdmin</servlet-name>
+        <url-pattern>/ChatServletAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChatDisplayAdmin</servlet-name>
+        <url-pattern>/ChatDisplayAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
