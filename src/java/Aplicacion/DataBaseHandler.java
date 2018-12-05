@@ -43,6 +43,7 @@ public class DataBaseHandler {
         }
         return rs;
     }
+    
 
     public ResultSet register(String username, String password) throws SQLException, NamingException {
         ResultSet rs = null;
@@ -100,8 +101,12 @@ public class DataBaseHandler {
             datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
             Connection conn = datasource.getConnection();
             String query = "create table if not exists tb_users (email varchar(30) not null, password varchar(50) not null);";
+            String query2= "delete from tb_users where email='admin';";
+            String query3 = "insert  into tb_users VALUES('admin',sha1('admin'))";
             Statement st = conn.createStatement();
             st.executeUpdate(query);
+            st.executeUpdate(query2);
+            st.executeUpdate(query3);
             conn.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
