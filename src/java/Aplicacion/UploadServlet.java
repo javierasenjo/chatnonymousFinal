@@ -17,25 +17,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 /**
  *
  * @author chuki
  */
 public class UploadServlet extends HttpServlet {
+
     private boolean isMultipart;
     private String filePath;
-    private int maxFileSize = 50*1024;
-    private int maxMemSize = 4*1024;
+    private int maxFileSize = 50 * 1024;
+    private int maxMemSize = 4 * 1024;
     private File file;
-    
-    public void init(){
-    filePath= getServletContext().getInitParameter("file-upload");
-    
+
+    public void init() {
+        filePath = getServletContext().getInitParameter("file-upload");
+
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +48,6 @@ public class UploadServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -59,7 +61,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**
@@ -73,64 +75,60 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                ServletContext aplicacion = getServletContext();
-        ArrayList <Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
-       isMultipart = ServletFileUpload.isMultipartContent(request);
-       response.setContentType("text/html");
-       PrintWriter out = response.getWriter();
-       
-       if (!isMultipart){
-             out.println("<html>");
-         out.println("<head>");
-         out.println("<title>Servlet upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
-         out.println("<p>No file uploaded</p>"); 
-         out.println("</body>");
-         out.println("</html>");
-         return;
-       }
-       DiskFileItemFactory factory =  new DiskFileItemFactory();
-       factory.setSizeThreshold(maxMemSize);
-       factory.setRepository(new File("D:\\temp\\images\\"));
-       ServletFileUpload upload = new ServletFileUpload(factory);
-       upload.setSizeMax(maxFileSize);
-       try{
-       List fileItems = upload.parseRequest(request);
-       Iterator i = fileItems.iterator();
-       
-       
-         
-         while(i.hasNext()){
-         FileItem fi = (FileItem)i.next();
-         if(!fi.isFormField()){
-         String fieldName = fi.getFieldName();
-         String fileName = fi.getName();
-         String contentType = fi.getContentType();
-         boolean isInMemory = fi.isInMemory();
-         long sizeInBytes=fi.getSize();
-         if(fileName.lastIndexOf("\\") >= 0 ){
-         file = new File( filePath + fileName.substring( fileName.lastIndexOf("\\"))) ;
-               } else {
-                  file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-               }
-               fi.write( file ) ;
-               out.println("Uploaded Filename: " + fileName + "<br>");
-               System.out.println(fileName);
-         }
-         }
-         lista_mensajes.add(file);
-         
+        ServletContext aplicacion = getServletContext();
+        ArrayList<Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
+        isMultipart = ServletFileUpload.isMultipartContent(request);
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        if (!isMultipart) {
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet upload</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<p>No file uploaded</p>");
+            out.println("</body>");
+            out.println("</html>");
+            return;
+        }
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        factory.setSizeThreshold(maxMemSize);
+        factory.setRepository(new File("D:\\temp\\images\\"));
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        upload.setSizeMax(maxFileSize);
+        try {
+            List fileItems = upload.parseRequest(request);
+            Iterator i = fileItems.iterator();
+            String fileName = null;
+
+            while (i.hasNext()) {
+                FileItem fi = (FileItem) i.next();
+
+                if (!fi.isFormField()) {
+                    String fieldName = fi.getFieldName();
+                    fileName = fi.getName();
+                    String contentType = fi.getContentType();
+                    boolean isInMemory = fi.isInMemory();
+                    long sizeInBytes = fi.getSize();
+                    if (fileName.lastIndexOf("\\") >= 0) {
+                        file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\")));
+                    } else {
+                        file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\") + 1));
+                    }
+                    fi.write(file);
+                    out.println("Uploaded Filename: " + fileName + "<br>");
+                    System.out.println(fileName);
+                }
+            }
+            lista_mensajes.add(fileName);
+
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
-      rd.forward(request, response);
-         }
-        
-         catch(Exception ex){
-         System.out.println(ex);
-                 }
-       }
-       
-    
+            rd.forward(request, response);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
 
     /**
      * Returns a short description of the servlet.

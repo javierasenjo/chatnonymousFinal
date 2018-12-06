@@ -17,7 +17,14 @@
                 <tr><td>
                         <ul>
                             <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador}'>
-                                <li> #{entry}</li>
+                                <c:choose>
+                                    <c:when test="#{fn:contains(entry,'.jpg')}">
+                                        <img src="#{entry}"></img>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>#{entry}</li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
 
@@ -33,7 +40,7 @@
                 <tr><td> <h3>Enviar archivo</h3></td></tr>
                 <form action='UploadServlet' method ='post' enctype='multipart/form-data'>
                     <tr><td>   <input type='file' name='file' size='50'></input></td></tr>
-                    <tr><td> <input type='submit' value='Subir archivo'></input>    </td></tr>
+                    <tr><td> <input type='submit' value='Subir archivo (.jpg)'></input>    </td></tr>
 
                 </form>
                 <tr>

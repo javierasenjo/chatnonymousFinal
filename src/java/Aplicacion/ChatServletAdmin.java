@@ -97,10 +97,4 @@ public class ChatServletAdmin extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    @Override
-    public void destroy() {
-        getServletContext().setAttribute("lista_mensajes", null);
-        System.out.println("Destructor");
-        System.out.println(getServletContext().getAttribute("lista_mensajes"));
-    }
 }
