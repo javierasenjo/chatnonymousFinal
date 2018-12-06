@@ -56,34 +56,41 @@ public class LoginChat extends HttpServlet {
         //Para forzar excepciones
         //Integer.parseInt("dewrftgbyhnu");
         ResultSet rs = bd.loginear(usuario, contrasena_cifrada);
-        if(usuario.equalsIgnoreCase("admin")&&rs.next()){
-          RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServletAdmin");
+        EmailValidator validador = new EmailValidator();
+        if (usuario.equalsIgnoreCase("admin") && rs.next()) {
+            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServletAdmin");
             rd.forward(request, response);
-        } else if(rs.next()) {
+        } else if (rs.next()) {
+            if (validador.validadorCeu(usuario)) {
+                ArrayList<String> lista_mensajes = new ArrayList();
+                sesion.setAttribute("contador", contador);
+                
 
-            ArrayList<String> lista_mensajes = new ArrayList();
-            sesion.setAttribute("contador", contador);
-            usuarios_conectados.add(usuario);
-            aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
+                Cookie[] listaCookies = request.getCookies();
+                Cookie galletaSelectora = null;
 
-            Cookie[] listaCookies = request.getCookies();
-            Cookie galletaSelectora = null;
-
-            if (listaCookies != null) {
-                for (Cookie galleta : listaCookies) {
-                    if (galleta.getName().equals("Contador")) {
-                        galletaSelectora = galleta;
-                        galletaSelectora.setValue(Integer.toString(Integer.parseInt(galleta.getValue()) + 1));
+                if (listaCookies != null) {
+                    for (Cookie galleta : listaCookies) {
+                        if (galleta.getName().equals("Contador")) {
+                            galletaSelectora = galleta;
+                            galletaSelectora.setValue(Integer.toString(Integer.parseInt(galleta.getValue()) + 1));
+                        }
                     }
                 }
+                if (galletaSelectora == null) {
+                    galletaSelectora = new Cookie("Contador", "1");
+                }
+                response.addCookie(galletaSelectora);
+                RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServlet");
+                rd.forward(request, response);
+            } else {
+                usuarios_conectados.add(usuario);
+                aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/chatDisplayNoLoggeado.xhtml");
+                rd.forward(request, response);
             }
-            if (galletaSelectora == null) {
-                galletaSelectora = new Cookie("Contador", "1");
-            }
-            response.addCookie(galletaSelectora);
-            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServlet");
-            rd.forward(request, response);
         } else {
+            System.out.println("correo mal");
             RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");
             rd.forward(request, response);
         }

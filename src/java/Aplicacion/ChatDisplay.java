@@ -47,8 +47,14 @@ public class ChatDisplay extends HttpServlet {
         ServletContext aplicacion = getServletContext();
         ArrayList<Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes");
         HttpSession sesion = request.getSession();
-        int contador = (int) sesion.getAttribute("contador");
+        try {
+            int contador = (int) sesion.getAttribute("contador");
+        } catch (Exception e){
+            RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/index.xhtml");
+            rd.forward(request, response);
+        }
         int posicion = (int) aplicacion.getAttribute("contador_mensajes");
+
         response.setContentType("text/html;charset=UTF-8");
         int numeroSesion = 1;
         Cookie[] listaCookies = request.getCookies();

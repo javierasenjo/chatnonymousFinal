@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,6 +34,15 @@ public class ViewersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ArrayList<String> usuarios_conectados = (ArrayList) getServletContext().getAttribute("usuarios_conectados");   
+//        request.getSession().setMaxInactiveInterval(5);
+//        HttpSession sesion = request.getSession(false);
+//        if (sesion == null) {
+//            String usuario = (String) sesion.getAttribute("usuario");
+//            for
+//            sesion.invalidate();
+//        }
+
         RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/viewersDisplay.xhtml");
         rd.forward(request, response);
     }
