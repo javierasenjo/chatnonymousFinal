@@ -16,7 +16,7 @@
 
                 <tr><td>
                         <ul>
-                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry">
+                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador}'>
                                 <li> #{entry}</li>
                             </c:forEach>
                         </ul>
@@ -24,7 +24,10 @@
                     </td></tr>
                 <form name="loginForm" method="post" action='ChatServletAdmin'>
                     <tr><td>    Mensaje <input type='text' name='message'></input><br/></td></tr>
-                    <tr><td>    <input type='submit' value='Enviar'></input></td></tr>
+                    <tr><td>    <input type='submit' value='Enviar'></input></td>
+                        <td><form action='ChatDisplayAdmin' method='post'>
+                                <input type ='submit' value='Actualizar chat'></input>  
+                            </form> </td></tr>
                 </form>
 
                 <tr><td> <h3>Enviar archivo</h3></td></tr>
@@ -33,9 +36,14 @@
                     <tr><td> <input type='submit' value='Subir archivo'></input>    </td></tr>
 
                 </form>
-                <form action='ViewersServlet' method='post'>
-                    <tr><td> <input type ='submit' value='Ver los observadores'></input>   </td></tr>   
-                </form>
+                <tr>
+                    <form action='ViewersServlet' method='post'>
+                        <td> <input type ='submit' value='Ver los observadores'></input>   </td>
+                    </form>
+                    <form action='LogoutServlet' method='post'>
+                        <td> <input type ='submit' value='Desconectar sesión'></input>   </td>
+                    </form>
+                </tr>   
             </table>
 
             <h3> Has visitado esta página #{cookie['Contador'].value} veces</h3>

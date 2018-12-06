@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -49,7 +50,7 @@ public class ChatDisplay extends HttpServlet {
         HttpSession sesion = request.getSession();
         try {
             int contador = (int) sesion.getAttribute("contador");
-        } catch (Exception e){
+        } catch (Exception e) {
             RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/index.xhtml");
             rd.forward(request, response);
         }
@@ -64,6 +65,11 @@ public class ChatDisplay extends HttpServlet {
                 numeroSesion = Integer.parseInt(galleta.getValue());
             }
         }
+//        Enumeration<String> attributes = request.getSession().getAttributeNames();
+//        while (attributes.hasMoreElements()) {
+//            String attribute = attributes.nextElement();
+//            System.out.println(attribute + " : " + request.getSession().getAttribute(attribute));
+//        }
         RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/chatDisplay.xhtml");
         rd.forward(request, response);
     }

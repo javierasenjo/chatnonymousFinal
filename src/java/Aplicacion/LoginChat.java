@@ -81,11 +81,14 @@ public class LoginChat extends HttpServlet {
                     galletaSelectora = new Cookie("Contador", "1");
                 }
                 response.addCookie(galletaSelectora);
+                request.getSession().setAttribute("contador", contador);
                 RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServlet");
                 rd.forward(request, response);
             } else {
+                request.getSession().setAttribute("usuario", usuario);
                 usuarios_conectados.add(usuario);
                 aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
+                request.getSession().setAttribute("contador", contador);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/chatDisplayNoLoggeado.xhtml");
                 rd.forward(request, response);
             }

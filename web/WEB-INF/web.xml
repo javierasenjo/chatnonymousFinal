@@ -66,6 +66,14 @@
         <servlet-name>ChatDisplayAdmin</servlet-name>
         <servlet-class>Aplicacion.ChatDisplayAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>Aplicacion.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChatDisplayNoLoggeadoServlet</servlet-name>
+        <servlet-class>Aplicacion.ChatDisplayNoLoggeadoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChatDisplay</servlet-name>
         <url-pattern>/ChatDisplay</url-pattern>
@@ -125,6 +133,14 @@
     <servlet-mapping>
         <servlet-name>ChatDisplayAdmin</servlet-name>
         <url-pattern>/ChatDisplayAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChatDisplayNoLoggeadoServlet</servlet-name>
+        <url-pattern>/ChatDisplayNoLoggeadoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

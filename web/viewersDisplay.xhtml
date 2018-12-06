@@ -7,12 +7,15 @@
 
     <ui:define name="content">
         <h1>Usuarios observando</h1>
-        
-             <ul>
+
+        <ul>
             <c:forEach items="#{applicationScope.usuarios_conectados}" var="entry">
                 <li>  <b>#{entry}</b> </li>
-                
+
             </c:forEach>
+            <form action='ChatDisplay' method='post'>
+                <input type ='submit' value='Volver al chat'></input>
+            </form>
         </ul>
     </ui:define>
 
