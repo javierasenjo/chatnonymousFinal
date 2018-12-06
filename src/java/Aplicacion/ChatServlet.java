@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author chuki
  */
 public class ChatServlet extends HttpServlet {
-ArrayList <Object> lista_mensajes = new ArrayList();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,7 +37,7 @@ ArrayList <Object> lista_mensajes = new ArrayList();
         response.setContentType("text/html;charset=UTF-8");
       String mensaje = request.getParameter("message");
       ServletContext aplicacion = getServletContext();
-      lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
+      ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
       aplicacion.setAttribute("contador_mensajes", (int)aplicacion.getAttribute("contador_mensajes")+1);
      
       lista_mensajes.add(mensaje);

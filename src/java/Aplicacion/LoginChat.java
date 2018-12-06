@@ -64,7 +64,6 @@ public class LoginChat extends HttpServlet {
             if (validador.validadorCeu(usuario)) {
                 ArrayList<String> lista_mensajes = new ArrayList();
                 sesion.setAttribute("contador", contador);
-                
 
                 Cookie[] listaCookies = request.getCookies();
                 Cookie galletaSelectora = null;
@@ -89,6 +88,12 @@ public class LoginChat extends HttpServlet {
                 usuarios_conectados.add(usuario);
                 aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
                 request.getSession().setAttribute("contador", contador);
+                
+                ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
+                aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);
+                lista_mensajes.add("Se ha conectado al chat: " + usuario);
+                aplicacion.setAttribute("lista_mensajes", lista_mensajes);
+                
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/chatDisplayNoLoggeado.xhtml");
                 rd.forward(request, response);
             }

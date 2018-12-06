@@ -2,6 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 template="./template.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
@@ -12,8 +13,15 @@
 
                 <tr><td>
                         <ul>
-                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador}'>
-                                <li> #{entry}</li>
+                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador+1}'>
+                                <c:choose>
+                                    <c:when test="#{fn:contains(entry,'.jpg')}">
+                                        <img src="#{entry}"></img>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>#{entry}</li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
 
