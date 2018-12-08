@@ -63,6 +63,7 @@ public class LoginChat extends HttpServlet {
         } else if (rs.next()) {
             if (validador.validadorCeu(usuario)) {
                 ArrayList<String> lista_mensajes = new ArrayList();
+                request.getSession().setAttribute("usuario", usuario);
                 sesion.setAttribute("contador", contador);
 
                 Cookie[] listaCookies = request.getCookies();

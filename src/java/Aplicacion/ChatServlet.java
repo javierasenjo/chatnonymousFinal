@@ -5,7 +5,6 @@ package Aplicacion;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -35,15 +34,32 @@ public class ChatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      String mensaje = request.getParameter("message");
-      ServletContext aplicacion = getServletContext();
-      ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
-      aplicacion.setAttribute("contador_mensajes", (int)aplicacion.getAttribute("contador_mensajes")+1);
-     
-      lista_mensajes.add(mensaje);
-      aplicacion.setAttribute("lista_mensajes",lista_mensajes);
-      RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
-      rd.forward(request, response);
+        String mensaje = request.getParameter("message");
+        ServletContext aplicacion = getServletContext();
+        String usuario = (String) request.getSession().getAttribute("usuario");
+        ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
+        ArrayList<Object> lista_mensajes_admin = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes_admin");
+        
+        if (request.getParameter("message") == null || request.getParameter("message").equalsIgnoreCase("")) {
+            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
+            rd.forward(request, response);
+        } else {
+            aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);
+
+            lista_mensajes.add(mensaje);
+            lista_mensajes_admin.add(usuario + ": " + mensaje);
+            System.out.println(usuario + ": " + mensaje);
+            aplicacion.setAttribute("lista_mensajes", lista_mensajes);
+            aplicacion.setAttribute("lista_mensajes_admin", lista_mensajes_admin);
+//            for (int i = 0; i < lista_mensajes.size(); i++) {
+//                System.out.println("lista normal" + lista_mensajes.get(i));
+//            }
+//            for (int i = 0; i < lista_mensajes_admin.size(); i++) {
+//                System.out.println(lista_mensajes_admin.get(i));
+//            }
+            RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,8 +102,9 @@ public class ChatServlet extends HttpServlet {
     }// </editor-fold>
 
     @Override
-    public void destroy(){
+    public void destroy() {
         getServletContext().setAttribute("lista_mensajes", null);
+        getServletContext().setAttribute("lista_mensajes_admin", null);
         System.out.println("Destructor");
         System.out.println(getServletContext().getAttribute("lista_mensajes"));
     }

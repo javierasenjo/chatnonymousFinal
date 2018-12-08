@@ -17,7 +17,7 @@
 
                 <tr><td>
                         <ul>
-                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador}'>
+                            <c:forEach items="#{applicationScope.lista_mensajes_admin}" var="entry" begin='#{sessionScope.contador}'>
                                 <c:choose>
                                     <c:when test="#{fn:contains(entry,'.jpg')}">
                                         <img src="#{entry}"></img>

@@ -22,8 +22,6 @@ import javax.servlet.http.HttpSession;
  */
 public class ChatServletAdmin extends HttpServlet {
 
-    ArrayList<Object> lista_mensajes = new ArrayList();
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,22 +35,19 @@ public class ChatServletAdmin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String mensaje = "Admin: " + request.getParameter("message");
-        if (request.getParameter("message") == null ||request.getParameter("message").equalsIgnoreCase("") ) {
-             ServletContext aplicacion = getServletContext();
-            lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
-            aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);
-
-            //lista_mensajes.add(mensaje);
-            aplicacion.setAttribute("lista_mensajes", lista_mensajes);
+        if (request.getParameter("message") == null || request.getParameter("message").equalsIgnoreCase("")) {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplayAdmin");
             rd.forward(request, response);
         } else {
             ServletContext aplicacion = getServletContext();
-            lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
+            ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
+            ArrayList<Object> lista_mensajes_admin = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes_admin");
             aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);
 
             lista_mensajes.add(mensaje);
+            lista_mensajes_admin.add(mensaje);
             aplicacion.setAttribute("lista_mensajes", lista_mensajes);
+            aplicacion.setAttribute("lista_mensajes_admin", lista_mensajes_admin);
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplayAdmin");
             rd.forward(request, response);
         }
