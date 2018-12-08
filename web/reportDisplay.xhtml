@@ -6,16 +6,23 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content">
-        <h1>Usuarios observando</h1>
+        <h1>Usuarios para expulsar</h1>
+
 
         <ul>
-            <c:forEach items="#{applicationScope.viewers_conectados}" var="entry">
-                <li>  <b>#{entry}</b> </li>
-
+            <c:forEach items="#{applicationScope.usuarios_conectados}" var="entry">
+                <form action='ReportServlet' method='post'>
+                    <li>
+                        <input type="hidden" name="usuario_eliminado" value="#{entry}"></input> #{entry}
+                        <input type ='submit' name="usuario_eliminado" value='Reportar'></input>
+                    </li>
+                </form>
             </c:forEach>
-            <form action='ChatDisplay' method='post'>
+            <form action='ChatDisplayAdmin' method='post'>
                 <input type ='submit' value='Volver al chat'></input>
             </form>
+
+
         </ul>
     </ui:define>
 

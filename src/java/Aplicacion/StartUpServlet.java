@@ -86,10 +86,12 @@ public class StartUpServlet extends HttpServlet {
         int contador_mensajes = 0;
         ArrayList<String> lista_mensajes = new ArrayList();
         ArrayList<String> lista_mensajes_admin = new ArrayList();
+        ArrayList<String> viewers_conectados = new ArrayList();
         ArrayList<String> usuarios_conectados = new ArrayList();
         ServletContext aplicacion = getServletContext();
         aplicacion.setAttribute("lista_mensajes", lista_mensajes);
         aplicacion.setAttribute("lista_mensajes_admin", lista_mensajes_admin);
+        aplicacion.setAttribute("viewers_conectados", viewers_conectados);
         aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
         aplicacion.setAttribute("contador_mensajes", contador_mensajes);
     }

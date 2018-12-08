@@ -46,6 +46,7 @@ public class LoginChat extends HttpServlet {
             throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
         ServletContext aplicacion = getServletContext();
         int contador = (int) aplicacion.getAttribute("contador_mensajes");
+        ArrayList<String> viewers_conectados = (ArrayList) aplicacion.getAttribute("viewers_conectados");
         ArrayList<String> usuarios_conectados = (ArrayList) aplicacion.getAttribute("usuarios_conectados");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
@@ -64,6 +65,9 @@ public class LoginChat extends HttpServlet {
             if (validador.validadorCeu(usuario)) {
                 ArrayList<String> lista_mensajes = new ArrayList();
                 request.getSession().setAttribute("usuario", usuario);
+                usuarios_conectados.add(usuario);
+                aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
+                System.out.println("Se ha añadido a la lista de conectados:" + usuario);
                 sesion.setAttribute("contador", contador);
 
                 Cookie[] listaCookies = request.getCookies();
@@ -86,15 +90,15 @@ public class LoginChat extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 request.getSession().setAttribute("usuario", usuario);
-                usuarios_conectados.add(usuario);
-                aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
+                viewers_conectados.add(usuario);
+                aplicacion.setAttribute("viewers_conectados", viewers_conectados);
                 request.getSession().setAttribute("contador", contador);
-                
+
                 ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
                 aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);
                 lista_mensajes.add("Se ha conectado al chat: " + usuario);
                 aplicacion.setAttribute("lista_mensajes", lista_mensajes);
-                
+
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/chatDisplayNoLoggeado.xhtml");
                 rd.forward(request, response);
             }

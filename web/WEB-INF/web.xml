@@ -74,6 +74,10 @@
         <servlet-name>ChatDisplayNoLoggeadoServlet</servlet-name>
         <servlet-class>Aplicacion.ChatDisplayNoLoggeadoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportServlet</servlet-name>
+        <servlet-class>Aplicacion.ReportServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChatDisplay</servlet-name>
         <url-pattern>/ChatDisplay</url-pattern>
@@ -141,6 +145,10 @@
     <servlet-mapping>
         <servlet-name>ChatDisplayNoLoggeadoServlet</servlet-name>
         <url-pattern>/ChatDisplayNoLoggeadoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportServlet</servlet-name>
+        <url-pattern>/ReportServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

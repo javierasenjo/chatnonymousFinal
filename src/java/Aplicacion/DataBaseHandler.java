@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,7 +44,6 @@ public class DataBaseHandler {
         }
         return rs;
     }
-    
 
     public ResultSet register(String username, String password) throws SQLException, NamingException {
         ResultSet rs = null;
@@ -87,6 +87,22 @@ public class DataBaseHandler {
         }
     }
 
+    public void borrarUsuario(String username) throws SQLException {
+        try {
+            InitialContext initialcontext = new InitialContext();
+            DataSource datasource;
+            datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
+            Connection conn = datasource.getConnection();
+            String query = " delete from tb_users where email='" + username + "';";
+            Statement st;
+            st = conn.createStatement();
+            st.executeUpdate(query);
+            conn.close();
+        } catch (NamingException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public String hash(String pass) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest msdDigest = MessageDigest.getInstance("SHA-1");
         msdDigest.update(pass.getBytes("UTF-8"), 0, pass.length());
@@ -101,7 +117,7 @@ public class DataBaseHandler {
             datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
             Connection conn = datasource.getConnection();
             String query = "create table if not exists tb_users (email varchar(30) not null, password varchar(50) not null);";
-            String query2= "delete from tb_users where email='admin';";
+            String query2 = "delete from tb_users where email='admin';";
             String query3 = "insert  into tb_users VALUES('admin',sha1('admin'))";
             Statement st = conn.createStatement();
             st.executeUpdate(query);
