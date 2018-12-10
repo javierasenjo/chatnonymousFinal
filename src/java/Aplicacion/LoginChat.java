@@ -58,8 +58,25 @@ public class LoginChat extends HttpServlet {
         //Integer.parseInt("dewrftgbyhnu");
         ResultSet rs = bd.loginear(usuario, contrasena_cifrada);
         EmailValidator validador = new EmailValidator();
+        
         if (usuario.equalsIgnoreCase("admin") && rs.next()) {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServletAdmin");
+            Cookie[] listaCookies = request.getCookies();
+            Cookie galletaSelectora = null;
+
+            if (listaCookies != null) {
+                for (Cookie galleta : listaCookies) {
+                    if (galleta.getName().equals("Contador")) {
+                        galletaSelectora = galleta;
+                        galletaSelectora.setValue("0");
+                    }
+                }
+            }
+            if (galletaSelectora == null) {
+                galletaSelectora = new Cookie("Contador", "1");
+            }
+            response.addCookie(galletaSelectora);
+            request.getSession().setAttribute("contador", contador);
             rd.forward(request, response);
         } else if (rs.next()) {
             if (validador.validadorCeu(usuario)) {

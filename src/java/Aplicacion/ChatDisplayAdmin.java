@@ -52,12 +52,16 @@ public class ChatDisplayAdmin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int numeroSesion = 1;
         Cookie[] listaCookies = request.getCookies();
-
+        Cookie cook= null;
         for (Cookie galleta : listaCookies) {
             if (galleta.getName().equals("Contador")) {
-                numeroSesion = Integer.parseInt(galleta.getValue());
+                numeroSesion = Integer.parseInt(galleta.getValue()) + 1;
+                galleta.setValue(String.valueOf(numeroSesion));
+                cook = galleta;
+
             }
         }
+        response.addCookie(cook);
         RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/chatDisplayAdmin.xhtml");
         rd.forward(request, response);
     }

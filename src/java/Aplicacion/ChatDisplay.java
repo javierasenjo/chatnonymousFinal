@@ -67,14 +67,7 @@ public class ChatDisplay extends HttpServlet {
             int posicion = (int) aplicacion.getAttribute("contador_mensajes");
 
             response.setContentType("text/html;charset=UTF-8");
-            int numeroSesion = 1;
-            Cookie[] listaCookies = request.getCookies();
-
-            for (Cookie galleta : listaCookies) {
-                if (galleta.getName().equals("Contador")) {
-                    numeroSesion = Integer.parseInt(galleta.getValue());
-                }
-            }
+        
 //        Enumeration<String> attributes = request.getSession().getAttributeNames();
 //        while (attributes.hasMoreElements()) {
 //            String attribute = attributes.nextElement();

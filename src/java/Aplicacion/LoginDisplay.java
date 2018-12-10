@@ -41,7 +41,8 @@ public class LoginDisplay extends HttpServlet {
         ServletContext aplicacion = getServletContext();
         int contador_mensajes = (int) aplicacion.getAttribute("contador_mensajes");
         HttpSession sesion = request.getSession();
-        sesion.setAttribute("contador", contador_mensajes);
+       
+        sesion.setAttribute("contador_mensajes", contador_mensajes);
         RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/loginDisplay.xhtml");
         rd.forward(request, response);
     }
