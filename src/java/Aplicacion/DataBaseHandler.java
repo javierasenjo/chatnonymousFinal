@@ -45,6 +45,23 @@ public class DataBaseHandler {
         return rs;
     }
 
+    public ResultSet comprobaciónUsuarioExiste(String username) throws SQLException {
+        ResultSet rs = null;
+        try {
+            InitialContext initialcontext = new InitialContext();
+            DataSource datasource;
+            datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
+            Connection conn = datasource.getConnection();
+            String query = "select * from tb_users where email ='" + username + "';";
+            Statement st;
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            conn.close();
+        } catch (NamingException ex) {
+            Logger.getLogger(LoginChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
     public ResultSet register(String username, String password) throws SQLException, NamingException {
         ResultSet rs = null;
         try {

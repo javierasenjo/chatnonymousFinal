@@ -159,7 +159,7 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-            D:\temp\images\
+            C:\temp\images\
         </param-value>
     </context-param>
     <welcome-file-list>

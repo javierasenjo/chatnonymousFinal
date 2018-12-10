@@ -94,7 +94,7 @@ public class UploadServlet extends HttpServlet {
         }
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(maxMemSize);
-        factory.setRepository(new File("D:\\temp\\images\\"));
+        factory.setRepository(new File("C:\\temp\\images\\"));
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setSizeMax(maxFileSize);
         try {
@@ -108,6 +108,7 @@ public class UploadServlet extends HttpServlet {
                 if (!fi.isFormField()) {
                     String fieldName = fi.getFieldName();
                     fileName = fi.getName();
+                    
                     String contentType = fi.getContentType();
                     boolean isInMemory = fi.isInMemory();
                     long sizeInBytes = fi.getSize();
