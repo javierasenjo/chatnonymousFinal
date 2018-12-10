@@ -65,8 +65,6 @@ public class ChatDisplay extends HttpServlet {
                 rd.forward(request, response);
             }
             int posicion = (int) aplicacion.getAttribute("contador_mensajes");
-
-            response.setContentType("text/html;charset=UTF-8");
         
 //        Enumeration<String> attributes = request.getSession().getAttributeNames();
 //        while (attributes.hasMoreElements()) {

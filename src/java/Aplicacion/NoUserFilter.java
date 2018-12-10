@@ -43,6 +43,11 @@ public class NoUserFilter implements Filter {
                 RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/index.xhtml");
                 requestDispatcher.forward(request, response);
 
+            } else if ("admin".equals(sesion.getAttribute("usuario"))) {
+                System.out.println("[Filtro sesion] Redirigiendo a chatAdminDisplay");
+                ServletContext servletContext = httpRequest.getSession().getServletContext();
+                RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplayAdmin");
+                requestDispatcher.forward(request, response);
             } else {
                 //Redirigir
                 chain.doFilter(request, response);

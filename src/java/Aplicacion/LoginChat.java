@@ -59,6 +59,7 @@ public class LoginChat extends HttpServlet {
         ResultSet rs = bd.loginear(usuario, contrasena_cifrada);
         EmailValidator validador = new EmailValidator();
         
+        //admin
         if (usuario.equalsIgnoreCase("admin") && rs.next()) {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServletAdmin");
             Cookie[] listaCookies = request.getCookies();
@@ -78,7 +79,9 @@ public class LoginChat extends HttpServlet {
             response.addCookie(galletaSelectora);
             request.getSession().setAttribute("contador", contador);
             rd.forward(request, response);
+            //usuario normal
         } else if (rs.next()) {
+           //usuario ceu
             if (validador.validadorCeu(usuario)) {
                 ArrayList<String> lista_mensajes = new ArrayList();
                 request.getSession().setAttribute("usuario", usuario);
@@ -105,9 +108,13 @@ public class LoginChat extends HttpServlet {
                 request.getSession().setAttribute("contador", contador);
                 RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServlet");
                 rd.forward(request, response);
+                //usuario resto correos
             } else {
                 request.getSession().setAttribute("usuario", usuario);
                 viewers_conectados.add(usuario);
+//                for (int i = 0; i < viewers_conectados.size(); i++) {
+//                    System.out.println(i);
+//                }
                 aplicacion.setAttribute("viewers_conectados", viewers_conectados);
                 request.getSession().setAttribute("contador", contador);
 
