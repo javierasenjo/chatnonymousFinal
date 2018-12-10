@@ -6,6 +6,7 @@
 package Aplicacion;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -19,11 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author ebenz
+ * @author fer
  */
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"/RegisterDisplay"})
+@WebFilter(filterName = "ViewersFilter", urlPatterns = {"/ViewersServlet"})
 
-public class LoginFilter implements Filter {
+public class ViewersFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -31,20 +32,15 @@ public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("[Filtro login] Procesando Petición");
+        System.out.println("[Filtro viewers] Procesando Petición");
         try {
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-            String user = (String) httpRequest.getSession().getAttribute("usuario");
-            if ("developer@ceu.es".equals(user)) {
-                System.out.println("[Filtro login] Redirigiendo a easter egg");
-                ServletContext servletContext = httpRequest.getSession().getServletContext();
-                RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/easterEgg.xhtml");
+            ServletContext contexto= request.getServletContext();
+            ArrayList usuarios_conectados = (ArrayList) contexto.getAttribute("usuarios_conectados");
+            if (usuarios_conectados.isEmpty()) {
+                System.out.println("[Filtro viewers] Redirigiendo a viewersDisplayEmpty");
+                RequestDispatcher requestDispatcher = contexto.getRequestDispatcher("/viewersDisplayEmpty.xhtml");
                 requestDispatcher.forward(request, response);
 
-            } else if (user == null) {
-                ServletContext servletContext = httpRequest.getSession().getServletContext();
-                RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("RegisterDisplay");
-                requestDispatcher.forward(request, response);
             } else {
                 //Redirigir
                 chain.doFilter(request, response);
