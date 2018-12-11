@@ -20,7 +20,7 @@
                             <c:forEach items="#{applicationScope.lista_mensajes_admin}" var="entry" begin='#{sessionScope.contador}'>
                                 <c:choose>
                                     <c:when test="#{fn:contains(entry,'.jpg')}">
-                                        <img src="/images/#{entry}"></img>
+                                         <img src="${request.contextPath}/resources/images/${entry}"></img>
                                     </c:when>
                                     <c:otherwise>
                                         <li>#{entry}</li>

@@ -37,19 +37,22 @@ public class NoUserFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpSession sesion = (HttpSession) httpRequest.getSession();
             EmailValidator validator = new EmailValidator();
+            String user = (String) httpRequest.getSession().getAttribute("usuario");
+            //System.out.println("El usuario es " + user);
             if (sesion == null) {
                 System.out.println("[Filtro sesion] Redirigiendo a index.html");
                 ServletContext servletContext = httpRequest.getSession().getServletContext();
                 RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/index.xhtml");
                 requestDispatcher.forward(request, response);
 
-            } else if ("admin".equals(sesion.getAttribute("usuario"))) {
+            } else if ("admin".equals(user)) {
                 System.out.println("[Filtro sesion] Redirigiendo a chatAdminDisplay");
                 ServletContext servletContext = httpRequest.getSession().getServletContext();
                 RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplayAdmin");
                 requestDispatcher.forward(request, response);
             } else {
                 //Redirigir
+                System.out.println("[Filtro sesion] No se mete por ningun sitio");
                 chain.doFilter(request, response);
             }
         } catch (Exception ex) {

@@ -159,7 +159,7 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-            /home/chuki/NetBeansProjects/chatnonymousFinal/chatnonymousFinal/web/resources/images/
+            D:\NetBeansProjects\chatnonymousFinal\build\web\resources\images\
         </param-value>
     </context-param>
     <welcome-file-list>

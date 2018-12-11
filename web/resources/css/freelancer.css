@@ -19,7 +19,10 @@ body{
     height: 5px;
     
 }
-
+img{
+    height: 200px;
+    width: 200px;
+}
 
 #anonymous	{
     width: auto;
