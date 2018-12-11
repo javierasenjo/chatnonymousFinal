@@ -35,8 +35,8 @@ public class ViewersFilter implements Filter {
         System.out.println("[Filtro viewers] Procesando Petición");
         try {
             ServletContext contexto= request.getServletContext();
-            ArrayList usuarios_conectados = (ArrayList) contexto.getAttribute("usuarios_conectados");
-            if (usuarios_conectados.isEmpty()) {
+            ArrayList viewers_conectados = (ArrayList) contexto.getAttribute("viewers_conectados");
+            if (viewers_conectados.isEmpty()) {
                 System.out.println("[Filtro viewers] Redirigiendo a viewersDisplayEmpty");
                 RequestDispatcher requestDispatcher = contexto.getRequestDispatcher("/viewersDisplayEmpty.xhtml");
                 requestDispatcher.forward(request, response);

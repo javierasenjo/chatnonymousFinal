@@ -39,6 +39,8 @@ public class NoUserFilter implements Filter {
             EmailValidator validator = new EmailValidator();
             String user = (String) httpRequest.getSession().getAttribute("usuario");
             //System.out.println("El usuario es " + user);
+            boolean correoGeneral = validator.validadorGeneral(user);
+            boolean correoCeu = validator.validadorCeu(user);
             if (sesion == null) {
                 System.out.println("[Filtro sesion] Redirigiendo a index.html");
                 ServletContext servletContext = httpRequest.getSession().getServletContext();
@@ -49,6 +51,11 @@ public class NoUserFilter implements Filter {
                 System.out.println("[Filtro sesion] Redirigiendo a chatAdminDisplay");
                 ServletContext servletContext = httpRequest.getSession().getServletContext();
                 RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplayAdmin");
+                requestDispatcher.forward(request, response);
+            } else if (correoGeneral==true && correoCeu == false) {
+                System.out.println("[Filtro sesion] Redirigiendo a chatDisplayNoLoggeado");
+                ServletContext servletContext = httpRequest.getSession().getServletContext();
+                RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplayNoLoggeadoServlet");
                 requestDispatcher.forward(request, response);
             } else {
                 //Redirigir

@@ -32,11 +32,16 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ArrayList<String> lista_usuarios = (ArrayList) getServletContext().getAttribute("usuarios_conectados");
+        ArrayList<String> viewers_conectados = (ArrayList) getServletContext().getAttribute("viewers_conectados");
         String usuario = (String) request.getSession().getAttribute("usuario");
         lista_usuarios.remove(usuario);
+        if (viewers_conectados.contains(usuario)) {
+            System.out.println("Borrando de la lista de viewers: " + usuario);
+            viewers_conectados.remove(usuario);
+        }
         getServletContext().setAttribute("usuarios_conectados", lista_usuarios);
         request.getSession().invalidate();
-        
+
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.xhtml");
         dispatcher.forward(request, response);
     }
