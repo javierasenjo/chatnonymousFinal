@@ -47,7 +47,7 @@ public class ChatDisplayAdmin extends HttpServlet {
         ServletContext aplicacion = getServletContext();
         ArrayList<Object> lista_mensajes = (ArrayList) aplicacion.getAttribute("lista_mensajes_admin");
         HttpSession sesion = request.getSession();
-        int contador = (int) sesion.getAttribute("contador");
+      //  int contador = (int) sesion.getAttribute("contador");
         int posicion = (int) aplicacion.getAttribute("contador_mensajes");
         response.setContentType("text/html;charset=UTF-8");
         int numeroSesion = 1;
