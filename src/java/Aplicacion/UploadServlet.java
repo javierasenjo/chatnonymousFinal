@@ -30,8 +30,8 @@ public class UploadServlet extends HttpServlet {
 
     private boolean isMultipart;
     private String filePath;
-    private int maxFileSize = 50 * 1024;
-    private int maxMemSize = 4 * 1024;
+    private int maxFileSize = 500 * 1024;
+    private int maxMemSize = 400 * 1024;
     private File file;
 
     public void init() {
@@ -94,7 +94,7 @@ public class UploadServlet extends HttpServlet {
         }
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(maxMemSize);
-        factory.setRepository(new File("C:\\temp\\images\\"));
+        factory.setRepository(new File("/resources/images/"));
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setSizeMax(maxFileSize);
         try {
@@ -127,7 +127,8 @@ public class UploadServlet extends HttpServlet {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
             rd.forward(request, response);
         } catch (Exception ex) {
-            System.out.println(ex);
+           RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplay");
+           rd.forward(request,response);
         }
     }
 
