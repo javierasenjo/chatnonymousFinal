@@ -44,6 +44,7 @@ public class LoginChat extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
+        try{
         ServletContext aplicacion = getServletContext();
         int contador = (int) aplicacion.getAttribute("contador_mensajes");
         ArrayList<String> viewers_conectados = (ArrayList) aplicacion.getAttribute("viewers_conectados");
@@ -64,7 +65,8 @@ public class LoginChat extends HttpServlet {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServletAdmin");
             Cookie[] listaCookies = request.getCookies();
             Cookie galletaSelectora = null;
-
+            //Cookie admin =null;
+            //admin.setValue("admin");
             if (listaCookies != null) {
                 for (Cookie galleta : listaCookies) {
                     if (galleta.getName().equals("Contador")) {
@@ -76,9 +78,11 @@ public class LoginChat extends HttpServlet {
             if (galletaSelectora == null) {
                 galletaSelectora = new Cookie("Contador", "1");
             }
+          String admin = null;
+                   request.getSession().setAttribute("admin", admin);
             response.addCookie(galletaSelectora);
             request.getSession().setAttribute("contador", contador);
-            request.getSession().setAttribute("usuario", usuario);
+           // request.getSession().setAttribute("usuario", usuario);
             rd.forward(request, response);
             //usuario normal
         } else if (rs.next()) {
@@ -90,7 +94,8 @@ public class LoginChat extends HttpServlet {
                 aplicacion.setAttribute("usuarios_conectados", usuarios_conectados);
                 System.out.println("Se ha añadido a la lista de conectados:" + usuario);
                 sesion.setAttribute("contador", contador);
-
+                String usr= null;
+                 request.getSession().setAttribute("usuario",usr);
                 Cookie[] listaCookies = request.getCookies();
                 Cookie galletaSelectora = null;
 
@@ -106,12 +111,13 @@ public class LoginChat extends HttpServlet {
                     galletaSelectora = new Cookie("Contador", "1");
                 }
                 response.addCookie(galletaSelectora);
+                request.getSession().setAttribute("usuario", usuario);
                 request.getSession().setAttribute("contador", contador);
                 RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatServlet");
                 rd.forward(request, response);
                 //usuario resto correos
             } else {
-                request.getSession().setAttribute("usuario", usuario);
+                //request.getSession().setAttribute("usuario", usuario);
                 viewers_conectados.add(usuario);
 //                for (int i = 0; i < viewers_conectados.size(); i++) {
 //                    System.out.println(i);
@@ -121,7 +127,9 @@ public class LoginChat extends HttpServlet {
 
                 ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
                 aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);
+                System.out.println(lista_mensajes);
                 lista_mensajes.add("Se ha conectado al chat: " + usuario);
+                System.out.println(lista_mensajes);
                 aplicacion.setAttribute("lista_mensajes", lista_mensajes);
 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/chatDisplayNoLoggeado.xhtml");
@@ -132,6 +140,11 @@ public class LoginChat extends HttpServlet {
             RequestDispatcher rd = getServletContext().getNamedDispatcher("LoginDisplay");
             rd.forward(request, response);
         }
+    }catch (Exception Ex){
+            System.out.println(Ex);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.xhtml");
+        rd.forward(request,response);
+    }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

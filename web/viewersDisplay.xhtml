@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="./template.xhtml"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="content">
         <h1>Usuarios observando</h1>
@@ -13,9 +14,27 @@
                 <li>  <b>#{entry}</b> </li>
 
             </c:forEach>
-            <form action='ChatDisplay' method='post'>
+   
+        
+ 
+    	<li>
+            <c:set var = "admin" value="#{sessionScope.admin}"></c:set>
+            <c:if test="${sessionScope.admin eq admin}">
+                <h5> soy admin</h5>
+                 <form action='ChatDisplayAdmin' method='post'>
+                <input type ='submit' value='Volver al chat'></input>
+            </form> 
+            </c:if> 
+            
+            <c:if test="${sessionScope.admin ne admin}">
+                <p> no admin </p> 
+                <form action='ChatDisplay' method='post'>
                 <input type ='submit' value='Volver al chat'></input>
             </form>
+            </c:if>
+    		    
+        </li>
+
         </ul>
     </ui:define>
 

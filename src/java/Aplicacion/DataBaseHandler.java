@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.sql.DataSource;
 import javax.xml.bind.DatatypeConverter;
 
@@ -121,10 +122,16 @@ public class DataBaseHandler {
     }
 
     public String hash(String pass) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest msdDigest = MessageDigest.getInstance("SHA-1");
+       try{ MessageDigest msdDigest = MessageDigest.getInstance("SHA-1");
         msdDigest.update(pass.getBytes("UTF-8"), 0, pass.length());
         pass = DatatypeConverter.printHexBinary(msdDigest.digest());
         return pass;
+    }
+       catch(Exception Ex){
+        
+        
+    }
+       return pass;
     }
 
     public void createTable() throws NamingException {

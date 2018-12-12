@@ -13,7 +13,7 @@
 
                 <tr><td>
                         <ul>
-                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador+1}'>
+                            <c:forEach items="#{applicationScope.lista_mensajes}" var="entry" begin='#{sessionScope.contador}'>
                                 <c:choose>
                                     <c:when test="#{fn:contains(entry,'.jpg')}">
                                         <img src="${request.contextPath}/resources/images/${entry}"></img>
