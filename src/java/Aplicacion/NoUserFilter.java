@@ -52,10 +52,16 @@ public class NoUserFilter implements Filter {
                 ServletContext servletContext = httpRequest.getSession().getServletContext();
                 RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplayAdmin");
                 requestDispatcher.forward(request, response);
-            } else if (correoGeneral==true && correoCeu == false) {
+            } else if (correoGeneral == true && correoCeu == false) {
                 System.out.println("[Filtro sesion] Redirigiendo a chatDisplayNoLoggeado");
                 ServletContext servletContext = httpRequest.getSession().getServletContext();
                 RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplayNoLoggeadoServlet");
+                requestDispatcher.forward(request, response);
+
+            } else if (correoGeneral == true && correoCeu == true) {
+                System.out.println("[Filtro sesion] Redirigiendo a chatDisplay");
+                ServletContext servletContext = httpRequest.getSession().getServletContext();
+                RequestDispatcher requestDispatcher = servletContext.getNamedDispatcher("ChatDisplay");
                 requestDispatcher.forward(request, response);
             } else {
                 //Redirigir

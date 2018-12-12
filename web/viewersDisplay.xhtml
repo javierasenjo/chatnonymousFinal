@@ -18,20 +18,11 @@
         
  
     	<li>
-            <c:set var = "admin" value="#{sessionScope.admin}"></c:set>
-            <c:if test="${sessionScope.admin eq admin}">
-                <h5> soy admin</h5>
-                 <form action='ChatDisplayAdmin' method='post'>
-                <input type ='submit' value='Volver al chat'></input>
-            </form> 
-            </c:if> 
-            
-            <c:if test="${sessionScope.admin ne admin}">
-                <p> no admin </p> 
-                <form action='ChatDisplay' method='post'>
-                <input type ='submit' value='Volver al chat'></input>
+            <form action="ChatDisplay" method="post">
+                
+                <input type="submit" value="volver al chat"></input>
+                
             </form>
-            </c:if>
     		    
         </li>
 

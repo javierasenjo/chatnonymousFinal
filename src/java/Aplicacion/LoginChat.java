@@ -82,7 +82,7 @@ public class LoginChat extends HttpServlet {
                    request.getSession().setAttribute("admin", admin);
             response.addCookie(galletaSelectora);
             request.getSession().setAttribute("contador", contador);
-           // request.getSession().setAttribute("usuario", usuario);
+            request.getSession().setAttribute("usuario", usuario);
             rd.forward(request, response);
             //usuario normal
         } else if (rs.next()) {
