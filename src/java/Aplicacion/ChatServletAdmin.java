@@ -46,6 +46,7 @@ public class ChatServletAdmin extends HttpServlet {
 
             lista_mensajes.add(mensaje);
             lista_mensajes_admin.add(mensaje);
+            System.out.println(lista_mensajes_admin);
             aplicacion.setAttribute("lista_mensajes", lista_mensajes);
             aplicacion.setAttribute("lista_mensajes_admin", lista_mensajes_admin);
             RequestDispatcher rd = getServletContext().getNamedDispatcher("ChatDisplayAdmin");

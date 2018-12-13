@@ -124,6 +124,7 @@ public class LoginChat extends HttpServlet {
 //                }
                 aplicacion.setAttribute("viewers_conectados", viewers_conectados);
                 request.getSession().setAttribute("contador", contador);
+                request.getSession().setAttribute("usuario", usuario);
 
                 ArrayList<Object> lista_mensajes = (ArrayList<Object>) aplicacion.getAttribute("lista_mensajes");
                 aplicacion.setAttribute("contador_mensajes", (int) aplicacion.getAttribute("contador_mensajes") + 1);

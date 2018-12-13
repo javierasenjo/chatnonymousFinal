@@ -35,6 +35,7 @@ public class LogoutServlet extends HttpServlet {
         ArrayList<String> viewers_conectados = (ArrayList) getServletContext().getAttribute("viewers_conectados");
         String usuario = (String) request.getSession().getAttribute("usuario");
         lista_usuarios.remove(usuario);
+        //System.out.println("usuario desconectado" + usuario);
         if (viewers_conectados.contains(usuario)) {
             System.out.println("Borrando de la lista de viewers: " + usuario);
             viewers_conectados.remove(usuario);
